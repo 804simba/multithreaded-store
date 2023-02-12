@@ -14,6 +14,6 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public void readProductQuantityInExcel() {
-        store.ReadProductQuantityInExcelSheet();
+        store.ReadAllProductsInExcelSheet();
     }
 }

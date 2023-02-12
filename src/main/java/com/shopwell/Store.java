@@ -21,7 +21,11 @@ public class Store {
     public Store(String name,double accountBalance) {
         this.name = name;
         this.accountBalance = accountBalance;
-        this.excelManager = new ExcelManager();
+        try {
+            this.excelManager = new ExcelManager();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public double checkAccountBalance(Object other) {
@@ -61,9 +65,9 @@ public class Store {
         return false;
     }
 
-    public void ReadProductQuantityInExcelSheet(){
+    public void ReadAllProductsInExcelSheet(){
         try {
-            excelManager.readAllDataFromExcel();
+            excelManager.printAllDataFromExcel();
         } catch (Exception e) {
             e.printStackTrace();
         }
