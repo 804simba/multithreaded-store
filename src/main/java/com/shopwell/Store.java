@@ -1,10 +1,10 @@
 package com.shopwell;
 
 import com.shopwell.staff.Cashier;
+import com.shopwell.staff.ExcelManager;
 import com.shopwell.staff.Manager;
 import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,9 +16,12 @@ public class Store {
     private List<Cashier> cashiersList = new LinkedList<>();
     private List<Product> productsList = new LinkedList<>();
 
+    private ExcelManager excelManager;
+
     public Store(String name,double accountBalance) {
         this.name = name;
         this.accountBalance = accountBalance;
+        this.excelManager = new ExcelManager();
     }
 
     public double checkAccountBalance(Object other) {
@@ -56,6 +59,14 @@ public class Store {
                 return true;
         }
         return false;
+    }
+
+    public void ReadProductQuantityInExcelSheet(){
+        try {
+            excelManager.readAllDataFromExcel();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
