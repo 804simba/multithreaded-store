@@ -36,7 +36,7 @@ class StoreTest {
     }
     @Test
     void checkAccountBalance() {
-        assertTrue(store.getAccountBalance() == 100000.0);
+        assertEquals(100000.0, store.getAccountBalance());
     }
 
     @Test
@@ -50,7 +50,7 @@ class StoreTest {
 
     @Test
     void addCashier() {
-        assertTrue(store.getCashiersList().size() == 1);
+        assertEquals(1, store.getCashiersList().size());
     }
 
     @Test
