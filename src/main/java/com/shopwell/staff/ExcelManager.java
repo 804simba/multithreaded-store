@@ -2,21 +2,18 @@ package com.shopwell.staff;
 
 import com.shopwell.PRODUCTCATEGORY;
 import com.shopwell.Product;
+import lombok.Getter;
 import org.apache.poi.ss.usermodel.*;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
+@Getter
 // https://poi.apache.org/components/spreadsheet/quick-guide.html#FileInputStream
 public class ExcelManager {
     private static final String FILE_PATH = "src/main/java/com/shopwell/shopwell-inventory.xlsx";
-    List<Product> products;
-
     public ExcelManager() {
     }
 
