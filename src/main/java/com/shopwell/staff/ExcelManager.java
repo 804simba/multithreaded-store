@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 @Getter
-// https://poi.apache.org/components/spreadsheet/quick-guide.html#FileInputStream
 public class ExcelManager {
     private static final String FILE_PATH = "src/main/java/com/shopwell/shopwell-inventory.xlsx";
     public ExcelManager() {
@@ -59,9 +58,7 @@ public class ExcelManager {
         System.out.println("Updated successfully...");
     }
 
-    // https://www.codejava.net/coding/java-example-to-update-existing-excel-files-using-apache-poi
-
-    public void reduceProductQuantity(Product product, int quantity) {
+    public int reduceProductQuantity(Product product, int quantity) {
         try (FileInputStream inputStream = new FileInputStream(FILE_PATH);) {
             Workbook workbook = WorkbookFactory.create(inputStream);
             Sheet sheet = workbook.getSheetAt(0);
@@ -80,8 +77,8 @@ public class ExcelManager {
                         FileOutputStream outputStream = new FileOutputStream(FILE_PATH);
                         workbook.write(outputStream);
                         outputStream.close();
-                        System.out.printf("You've updated %s, New Qty: %d\n", product.getProductName(), newQuantity);
-                        return;
+                        System.out.printf("You have %d units of %s left\n", newQuantity, product.getProductName());
+                        return newQuantity;
                     } else {
                         System.out.printf("Sorry we don't have enough units of %s.\n", product.getProductName());
                         System.out.println();
@@ -92,6 +89,7 @@ public class ExcelManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return -1;
     }
 
 

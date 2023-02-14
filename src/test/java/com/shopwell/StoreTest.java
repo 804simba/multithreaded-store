@@ -1,13 +1,12 @@
 package com.shopwell;
 
-import com.shopwell.services.CashierService;
-import com.shopwell.services.ManagerService;
+import com.shopwell.services.ICashierService;
+import com.shopwell.services.IManagerService;
 import com.shopwell.services.servicesimplementation.CashierServiceImpl;
 import com.shopwell.services.servicesimplementation.ManagerServiceImpl;
 import com.shopwell.staff.Cashier;
 import com.shopwell.staff.Designation;
 import com.shopwell.staff.Manager;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,10 +16,10 @@ class StoreTest {
     Manager manager;
     Store store;
     Cashier cashier;
-    CashierService cs;
+    ICashierService cs;
     Customer customer;
     Product product;
-    ManagerService ms;
+    IManagerService ms;
 
     @BeforeEach
     void init() {

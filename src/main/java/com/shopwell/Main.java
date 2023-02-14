@@ -15,12 +15,13 @@ public class Main {
 
 //        ExcelManager excelManager = new ExcelManager();
 
-//        store.ReadAllProductsInExcelSheet();
+        store.ReadAllProductsInExcelSheet();
 //        store.getExcelManager().addProductToInventory(perfume);
-        store.getExcelManager().reduceProductQuantity(rice, 270);
+//        store.getExcelManager().reduceProductQuantity(rice, 10);
+        store.getExcelManager().reduceProductQuantity(beer, 1);
         store.ReadAllProductsInExcelSheet();
-        store.getExcelManager().addProductToInventory(beer);
-        store.ReadAllProductsInExcelSheet();
+//        store.getExcelManager().addProductToInventory(beer);
+//        store.ReadAllProductsInExcelSheet();
 
     }
 }

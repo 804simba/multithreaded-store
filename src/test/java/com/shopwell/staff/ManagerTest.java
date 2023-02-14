@@ -1,7 +1,7 @@
 package com.shopwell.staff;
 
 import com.shopwell.Store;
-import com.shopwell.services.ManagerService;
+import com.shopwell.services.IManagerService;
 import com.shopwell.services.servicesimplementation.ManagerServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ class ManagerTest {
     Cashier cashier2;
     Store store;
 
-    ManagerService ms;
+    IManagerService ms;
     @BeforeEach
     void init() {
         store = new Store("Shopwell", 100000.0);

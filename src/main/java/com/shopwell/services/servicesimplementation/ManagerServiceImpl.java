@@ -2,7 +2,7 @@ package com.shopwell.services.servicesimplementation;
 
 import com.shopwell.Product;
 import com.shopwell.Store;
-import com.shopwell.services.ManagerService;
+import com.shopwell.services.IManagerService;
 import com.shopwell.staff.Cashier;
 import com.shopwell.staff.Manager;
 import lombok.AccessLevel;
@@ -11,7 +11,7 @@ import lombok.experimental.FieldDefaults;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
-public class ManagerServiceImpl implements ManagerService {
+public class ManagerServiceImpl implements IManagerService {
     Manager manager;
     Store store;
 
