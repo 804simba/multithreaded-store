@@ -1,11 +1,14 @@
 package com.shopwell.staff;
 
+import com.shopwell.PRODUCTCATEGORY;
 import com.shopwell.Product;
 import org.apache.poi.ss.usermodel.*;
 
-import javax.print.DocFlavor;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -17,9 +20,52 @@ public class ExcelManager {
     public ExcelManager() {
     }
 
-    public void updateProductQuantity(Product product, int quantity) {
-        try {
-            FileInputStream inputStream = new FileInputStream(FILE_PATH);
+    public void addProductToInventory(Product product){
+        Object[] productDetailsArray = new Object[4];
+        productDetailsArray[0] = product.getProductName();
+        productDetailsArray[1] = product.getProductPrice();
+        productDetailsArray[2] = product.getProductQuantity();
+        productDetailsArray[3] = product.getProductCategory();
+        List<Object[]> productDetails = new ArrayList<>();
+        productDetails.add(productDetailsArray);
+
+        try (FileInputStream inputStream = new FileInputStream(FILE_PATH);) {
+            Workbook workbook = WorkbookFactory.create(inputStream);
+            Sheet sheet = workbook.getSheetAt(0);
+            int rowCount = sheet.getLastRowNum();
+            for (Object[] objArray : productDetails) {
+                Row row = sheet.createRow(++rowCount);
+                row.setRowNum(rowCount++);
+                int columnCount = 0;
+                for (Object obj : objArray) {
+                    Cell cell = row.createCell(columnCount++);
+                    if (obj instanceof String) {
+                        cell.setCellValue((String) obj);
+                    }
+                    if (obj instanceof Integer) {
+                        cell.setCellValue((Integer) obj);
+                    }
+                    if (obj instanceof Double) {
+                        cell.setCellValue((Double) obj);
+                    }
+                    if (obj instanceof PRODUCTCATEGORY) {
+                        cell.setCellValue(obj.toString());
+                    }
+                }
+            }
+            FileOutputStream outputStream = new FileOutputStream(FILE_PATH);
+            workbook.write(outputStream);
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("Updated successfully...");
+    }
+
+    // https://www.codejava.net/coding/java-example-to-update-existing-excel-files-using-apache-poi
+
+    public void reduceProductQuantity(Product product, int quantity) {
+        try (FileInputStream inputStream = new FileInputStream(FILE_PATH);) {
             Workbook workbook = WorkbookFactory.create(inputStream);
             FileOutputStream outputStream = new FileOutputStream(FILE_PATH);
             Sheet sheet = workbook.getSheetAt(0);
@@ -51,9 +97,8 @@ public class ExcelManager {
 
 
     public void printAllDataFromExcel() {
-        try {
+        try (FileInputStream inputStream = new FileInputStream(FILE_PATH);) {
             // create inputStream
-            FileInputStream inputStream = new FileInputStream(FILE_PATH);
             // create workBook instance
             Workbook workbook = WorkbookFactory.create(inputStream);
             // get first sheet from workbook
@@ -73,7 +118,7 @@ public class ExcelManager {
                     switch (currentCell.getCellType()) {
                         case Cell.CELL_TYPE_STRING:
                             System.out.printf("%13s", currentCell.getStringCellValue());
-                            System.out.print(" ");
+                            System.out.print("   ");
                             break;
                         case Cell.CELL_TYPE_NUMERIC:
                             System.out.printf("%13s", currentCell.getNumericCellValue());
@@ -81,7 +126,6 @@ public class ExcelManager {
                             break;
                     }
                 }
-                inputStream.close();
                 System.out.println();
             }
         } catch (Exception e) {
