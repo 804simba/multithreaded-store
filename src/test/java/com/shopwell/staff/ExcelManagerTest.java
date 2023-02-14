@@ -2,13 +2,8 @@ package com.shopwell.staff;
 
 import com.shopwell.PRODUCTCATEGORY;
 import com.shopwell.Product;
-import org.apache.poi.ss.usermodel.*;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.io.FileInputStream;
-import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,7 +19,7 @@ class ExcelManagerTest {
     @Test
     void shouldGetTheRemainingProductQuantity() {
         double expected = 230.0;
-        int actual = exm.reduceProductQuantity(rice, 10);
+        int actual = exm.updateProductQuantity(rice, 10);
         assertEquals(expected, actual);
     }
 }

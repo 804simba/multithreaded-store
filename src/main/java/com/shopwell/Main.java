@@ -1,7 +1,5 @@
 package com.shopwell;
 
-import com.shopwell.staff.ExcelManager;
-
 public class Main {
     public static void main(String[] args) {
         Store store = new Store("shopwell", 100000);
@@ -18,7 +16,7 @@ public class Main {
         store.ReadAllProductsInExcelSheet();
 //        store.getExcelManager().addProductToInventory(perfume);
 //        store.getExcelManager().reduceProductQuantity(rice, 10);
-        store.getExcelManager().reduceProductQuantity(beer, 1);
+        store.getExcelManager().updateProductQuantity(beer, 1);
         store.ReadAllProductsInExcelSheet();
 //        store.getExcelManager().addProductToInventory(beer);
 //        store.ReadAllProductsInExcelSheet();

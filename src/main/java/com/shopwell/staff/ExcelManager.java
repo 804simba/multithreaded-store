@@ -58,7 +58,7 @@ public class ExcelManager {
         System.out.println("Updated successfully...");
     }
 
-    public int reduceProductQuantity(Product product, int quantity) {
+    public int updateProductQuantity(Product product, int quantity) {
         try (FileInputStream inputStream = new FileInputStream(FILE_PATH);) {
             Workbook workbook = WorkbookFactory.create(inputStream);
             Sheet sheet = workbook.getSheetAt(0);

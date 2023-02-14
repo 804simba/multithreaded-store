@@ -76,6 +76,9 @@ public class Store {
     public void addProductToExcel(Product product) {
         excelManager.addProductToInventory(product);
     }
+    public void updateProductQtyInExcel(Product product, int quantity) {
+        excelManager.updateProductQuantity(product, quantity);
+    }
 
     @Override
     public String toString() {

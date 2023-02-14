@@ -6,10 +6,9 @@ import com.shopwell.services.IInventoryService;
 
 public class InventoryServiceImpl implements IInventoryService {
     Store store;
-    Product product;
     @Override
-    public void updateProductQuantityInExcel() {
-//        store.updateProductQtyInExcel();
+    public void updateProductQuantityInExcel(Product product, int quantity) {
+        store.updateProductQtyInExcel(product, quantity);
     }
 
     @Override
@@ -17,8 +16,7 @@ public class InventoryServiceImpl implements IInventoryService {
         store.ReadAllProductsInExcelSheet();
     }
 
-    @Override
-    public void addProductToInventory(Product product) {
+    public void addProductToInventoryInExcel(Product product) {
         store.addProductToExcel(product);
     }
 }
