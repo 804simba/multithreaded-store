@@ -1,25 +1,23 @@
 package com.shopwell.staff;
 
+import org.apache.poi.ss.usermodel.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileInputStream;
+import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ExcelManagerTest {
+    ExcelManager exm;
     @BeforeAll
     void init() {
-        ExcelManager exm = new ExcelManager();
-        try (FileInputStream fis = new FileInputStream();) {
-
-        } catch (Exception e) {
-
-        }
+        exm = new ExcelManager();
     }
 
     @Test
     void shouldReadProductNameInThirdRow() {
-
+        exm.
     }
 }

@@ -64,7 +64,6 @@ public class ExcelManager {
     public void reduceProductQuantity(Product product, int quantity) {
         try (FileInputStream inputStream = new FileInputStream(FILE_PATH);) {
             Workbook workbook = WorkbookFactory.create(inputStream);
-            FileOutputStream outputStream = new FileOutputStream(FILE_PATH);
             Sheet sheet = workbook.getSheetAt(0);
             Iterator<Row> rowIterator = sheet.rowIterator();
             // loop through each row
@@ -78,15 +77,18 @@ public class ExcelManager {
                         // update the current quantity.
                         int newQuantity = currentQuantity - quantity;
                         row.getCell(2).setCellValue(newQuantity);
+                        FileOutputStream outputStream = new FileOutputStream(FILE_PATH);
                         workbook.write(outputStream);
+                        outputStream.close();
                         System.out.printf("You've updated %s, New Qty: %d\n", product.getProductName(), newQuantity);
+                        return;
                     } else {
-                        System.out.println("Sorry we don't have enough units of this product.");
+                        System.out.printf("Sorry we don't have enough units of %s.\n", product.getProductName());
+                        System.out.println();
+                        break;
                     }
-                    return;
                 }
             }
-            outputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -95,6 +97,7 @@ public class ExcelManager {
 
     public void printAllDataFromExcel() {
         try (FileInputStream inputStream = new FileInputStream(FILE_PATH);) {
+            System.out.print("#################*****-- STORE INVENTORY --*****#################\n");
             // create inputStream
             // create workBook instance
             Workbook workbook = WorkbookFactory.create(inputStream);
@@ -125,6 +128,7 @@ public class ExcelManager {
                 }
                 System.out.println();
             }
+            System.out.print("#################  **********--  --**********  #################\n");
         } catch (Exception e) {
             e.printStackTrace();
         }
