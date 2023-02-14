@@ -16,4 +16,9 @@ public class InventoryServiceImpl implements IInventoryService {
     public void readProductQuantityInExcel() {
         store.ReadAllProductsInExcelSheet();
     }
+
+    @Override
+    public void addProductToInventory(Product product) {
+        store.addProductToExcel(product);
+    }
 }

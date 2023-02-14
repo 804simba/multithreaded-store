@@ -73,6 +73,10 @@ public class Store {
         }
     }
 
+    public void addProductToExcel(Product product) {
+        excelManager.addProductToInventory(product);
+    }
+
     @Override
     public String toString() {
         return "Store{" +
