@@ -22,11 +22,11 @@ public class Main {
         Cashier cashier = new Cashier("Sarah Mac", Role.CASHIER, store);
 
         IManagerService ms = new ManagerServiceImpl(manager, store);
-        ms.hireStaff(cashier);
-        ms.fireStaff(cashier);
+//        ms.hireStaff(cashier);
+//        ms.fireStaff(cashier);
 //        ICashierService cs = new CashierServiceImpl(cashier, store);
 
-//        store.ReadAllProductsInExcelSheet();
+        store.ReadAllProductsInExcelSheet();
 //        store.getExcelManager().addProductToInventory(perfume);
 //        store.getExcelManager().reduceProductQuantity(rice, 10);
 //        store.getExcelManager().updateProductQuantity(beer, 1);

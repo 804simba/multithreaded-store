@@ -29,10 +29,11 @@ class ManagerTest {
         manager = new Manager("Janet Collins", Role.MANAGER, store);
         cashier = new Cashier("Oliver Kahn", Role.CASHIER, store);
         cashier2 = new Cashier("Jack Daniels", Role.CASHIER, store);
-        customer = new Customer("Kanye West", 20000.0);
+        customer = new Customer("Kanye West", 200000.0);
         vodka = new Product("Vodka", 12000.0, PRODUCTCATEGORY.BEVERAGES, 100);
         ms = new ManagerServiceImpl(manager, store);
         cs = new CashierServiceImpl(cashier, store);
+        ms.addProduct(vodka);
     }
 
     @Test
@@ -57,6 +58,7 @@ class ManagerTest {
 
     @Test
     void shouldAddDaySalesToCompanyAccount() {
+        ms.hireStaff(cashier);
         customer.addProductToCart(vodka, 2);
         cs.checkOutCustomer(customer);
         manager.addSalesToCompanyAccount(store.getDailySalesAccount());
