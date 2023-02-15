@@ -63,15 +63,12 @@ public class ExcelManager {
             Workbook workbook = WorkbookFactory.create(inputStream);
             Sheet sheet = workbook.getSheetAt(0);
             Iterator<Row> rowIterator = sheet.rowIterator();
-            // loop through each row
+
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
-                // check the first cell of each row, for product name that matches.
                 if (row.getCell(0).getStringCellValue().equals(product.getProductName())) {
-                    // get the current quantity.
                     int currentQuantity = (int) row.getCell(2).getNumericCellValue();
                     if (currentQuantity >= quantity) {
-                        // update the current quantity.
                         int newQuantity = currentQuantity - quantity;
                         row.getCell(2).setCellValue(newQuantity);
                         FileOutputStream outputStream = new FileOutputStream(FILE_PATH);
@@ -96,23 +93,17 @@ public class ExcelManager {
     public int printAllDataFromExcel() {
         try (FileInputStream inputStream = new FileInputStream(FILE_PATH);) {
             System.out.print("#################*****-- STORE INVENTORY --*****#################\n");
-            // create inputStream
-            // create workBook instance
             Workbook workbook = WorkbookFactory.create(inputStream);
-            // get first sheet from workbook
             Sheet sheet = workbook.getSheetAt(0);
 
-            // loop through each row on sheet
             Iterator<Row> rowIterator = sheet.rowIterator();
             while (rowIterator.hasNext()) {
                 Row currentRow = rowIterator.next();
-                // for each row, loop through the cells
                 Iterator<Cell> cellIterator = currentRow.iterator();
 
                 while (cellIterator.hasNext()) {
                     Cell currentCell = cellIterator.next();
 
-                    // get cell type and print value
                     switch (currentCell.getCellType()) {
                         case Cell.CELL_TYPE_STRING:
                             System.out.printf("%13s", currentCell.getStringCellValue());
