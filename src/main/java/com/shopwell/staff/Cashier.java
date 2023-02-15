@@ -26,7 +26,7 @@ public class Cashier extends Staff {
         this.employmentStatus = status;
     }
 
-    public void checkOutCustomer(Customer customer) {
+    public boolean checkOutCustomer(Customer customer) {
         double totalCost = 0.0;
         List<Product> customerCart = customer.getCart();
         Iterator i = customerCart.iterator();
@@ -48,16 +48,21 @@ public class Cashier extends Staff {
             updateCompanyBalance(totalCost);
             issueReceipt(customer, totalCost);
             customer.getCart().clear();
+            return true;
         } else {
             System.out.println("Insufficient funds.");
         }
+        return false;
     }
 
-    public void updateProductQuantity(Product product, int quantity) {
+    public boolean updateProductQuantity(Product product, int quantity) {
         for (Product productInStock : store.getProductsList()) {
-            if (productInStock.getProductName().equals(product.getProductName()))
+            if (productInStock.getProductName().equals(product.getProductName())) {
                 productInStock.setProductQuantity(productInStock.getProductQuantity() - quantity);
+                return true;
+            }
         }
+        return false;
     }
 
 

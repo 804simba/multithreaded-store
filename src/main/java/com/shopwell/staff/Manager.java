@@ -34,10 +34,10 @@ public class Manager extends Staff {
         System.out.printf("You hired %s\n", cashier.getName());
     }
 
-    public void addSalesToCompanyAccount(double totalSalesForDay) {
-        store.updateStoreAccountBalance(totalSalesForDay, this);
+    public void addSalesToCompanyAccount(double dailySales) {
+        store.updateStoreAccountBalance(dailySales, this);
         System.out.println();
-        System.out.printf("Total Sales for the day: %.2f\n", totalSalesForDay);
+        System.out.printf("Total Sales for the day: %.2f\n", dailySales);
         System.out.printf("Current company Balance: %.2f\n", store.checkAccountBalance(this));
     }
 }
