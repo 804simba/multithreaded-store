@@ -31,8 +31,8 @@ public class ManagerServiceImpl implements IManagerService {
     }
 
     @Override
-    public void addSalesToCompanyAccount(double totalSalesForDay) {
-        manager.addSalesToCompanyAccount(totalSalesForDay);
+    public void addSalesToCompanyAccount(double dailySales) {
+        manager.addSalesToCompanyAccount(dailySales);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class ManagerServiceImpl implements IManagerService {
     }
 
     @Override
-    public String getProductList() {
+    public String getProductListDetail() {
         return store.getProductsList().toString();
     }
 }

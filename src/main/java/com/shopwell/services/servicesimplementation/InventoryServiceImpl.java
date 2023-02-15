@@ -12,7 +12,7 @@ public class InventoryServiceImpl implements IInventoryService {
     }
 
     @Override
-    public void readProductQuantityInExcel() {
+    public void readProductsInExcel() {
         store.ReadAllProductsInExcelSheet();
     }
 
