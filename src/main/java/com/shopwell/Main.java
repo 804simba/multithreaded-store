@@ -10,14 +10,11 @@ public class Main {
         Product soap = new Product("Soap", 100, PRODUCTCATEGORY.TOILETRIES, 30);
         Product perfume = new Product("Dior Perfume", 10, PRODUCTCATEGORY.TOILETRIES, 20);
 
-
-//        ExcelManager excelManager = new ExcelManager();
-
-        store.ReadAllProductsInExcelSheet();
+//        store.ReadAllProductsInExcelSheet();
 //        store.getExcelManager().addProductToInventory(perfume);
 //        store.getExcelManager().reduceProductQuantity(rice, 10);
-        store.getExcelManager().updateProductQuantity(beer, 1);
-        store.ReadAllProductsInExcelSheet();
+//        store.getExcelManager().updateProductQuantity(beer, 1);
+        System.out.println(store.ReadAllProductsInExcelSheet());
 //        store.getExcelManager().addProductToInventory(beer);
 //        store.ReadAllProductsInExcelSheet();
 

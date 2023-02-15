@@ -65,12 +65,13 @@ public class Store {
         return false;
     }
 
-    public void ReadAllProductsInExcelSheet(){
+    public int ReadAllProductsInExcelSheet(){
         try {
-            excelManager.printAllDataFromExcel();
+            return excelManager.printAllDataFromExcel();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return -1;
     }
 
     public void addProductToExcel(Product product) {

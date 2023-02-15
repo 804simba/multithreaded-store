@@ -93,7 +93,7 @@ public class ExcelManager {
     }
 
 
-    public void printAllDataFromExcel() {
+    public int printAllDataFromExcel() {
         try (FileInputStream inputStream = new FileInputStream(FILE_PATH);) {
             System.out.print("#################*****-- STORE INVENTORY --*****#################\n");
             // create inputStream
@@ -127,8 +127,10 @@ public class ExcelManager {
                 System.out.println();
             }
             System.out.print("#################  **********--  --**********  #################\n");
+            return sheet.getLastRowNum();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return -1;
     }
 }

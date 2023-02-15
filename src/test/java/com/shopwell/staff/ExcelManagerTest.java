@@ -18,8 +18,16 @@ class ExcelManagerTest {
 
     @Test
     void shouldGetTheRemainingProductQuantity() {
-        double expected = 230.0;
-        int actual = exm.updateProductQuantity(rice, 10);
+        double expected = 205.0;
+        int actual = exm.updateProductQuantity(rice, 5);
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldGetTheTotalNumberOfItems() {
+        int expected = 4;
+        int actual = exm.printAllDataFromExcel();
+        assertEquals(expected, actual);
+        assertNotEquals((Integer) null, actual);
     }
 }
