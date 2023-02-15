@@ -6,7 +6,6 @@ import com.shopwell.Store;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,13 +13,17 @@ import java.util.List;
 public class Cashier extends Staff {
     private boolean employmentStatus;
 
-    public Cashier(String name, Designation designation, Store store) {
-        super(name, designation, store);
-        this.employmentStatus = false;
+    public Cashier(String name, Role role, Store store) {
+        super(name, role, store);
+        this.employmentStatus = true;
     }
 
     public boolean getEmploymentStatus() {
         return employmentStatus;
+    }
+
+    public void setEmploymentStatus(boolean status) {
+        this.employmentStatus = status;
     }
 
     public void checkOutCustomer(Customer customer) {

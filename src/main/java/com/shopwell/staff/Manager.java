@@ -7,17 +7,17 @@ import java.util.Iterator;
 
 @Getter
 public class Manager extends Staff {
-    public Manager(String name, Designation designation, Store store) {
-        super(name, designation, store);
+    public Manager(String name, Role role, Store store) {
+        super(name, role, store);
     }
 
     public void fireStaff(Cashier cashier) {
         Iterator<Cashier> i = store.getCashiersList().iterator();
         while (i.hasNext()) {
             Cashier c = i.next();
-            if (c.getName() == cashier.getName() && cashier.getEmploymentStatus() == true) {
-                setEmploymentStatus(cashier);
-                store.getCashiersList().remove(cashier);
+            if (c.getName().equals(cashier.getName()) && cashier.getEmploymentStatus()) {
+                cashier.setEmploymentStatus(false);
+                i.remove();
                 System.out.printf("You fired %s", cashier.getName());
                 return;
             }
@@ -30,6 +30,7 @@ public class Manager extends Staff {
     }
     public void hireStaff(Cashier cashier) {
         store.addCashier(cashier, this);
+        cashier.setEmploymentStatus(true);
         System.out.printf("You hired %s\n", cashier.getName());
     }
 

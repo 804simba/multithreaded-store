@@ -5,7 +5,7 @@ import com.shopwell.services.IManagerService;
 import com.shopwell.services.servicesimplementation.CashierServiceImpl;
 import com.shopwell.services.servicesimplementation.ManagerServiceImpl;
 import com.shopwell.staff.Cashier;
-import com.shopwell.staff.Designation;
+import com.shopwell.staff.Role;
 import com.shopwell.staff.Manager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,9 +24,9 @@ class StoreTest {
     @BeforeEach
     void init() {
         store = new Store("shopwell", 100000.0);
-        manager = new Manager("John Cena", Designation.MANAGER, store);
+        manager = new Manager("John Cena", Role.MANAGER, store);
         product = new Product("Tissue", 120.0, PRODUCTCATEGORY.TOILETRIES, 10);
-        cashier = new Cashier("The Undertaker", Designation.CASHIER, store);
+        cashier = new Cashier("The Undertaker", Role.CASHIER, store);
         customer = new Customer("Jude King", 120000);
         customer.addProductToCart(product, 2);
         cs = new CashierServiceImpl(cashier, store);

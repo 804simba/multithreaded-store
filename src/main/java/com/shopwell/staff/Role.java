@@ -1,5 +1,5 @@
 package com.shopwell.staff;
 
-public enum Designation {
+public enum Role {
     MANAGER, CASHIER;
 }
