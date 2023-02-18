@@ -1,7 +1,8 @@
 package com.shopwell.staff;
 
-import com.shopwell.PRODUCTCATEGORY;
-import com.shopwell.Product;
+import com.shopwell.enums.PRODUCTCATEGORY;
+import com.shopwell.products.Product;
+import com.shopwell.utilities.ExcelManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

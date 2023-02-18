@@ -1,7 +1,7 @@
-package com.shopwell.staff;
+package com.shopwell.utilities;
 
-import com.shopwell.PRODUCTCATEGORY;
-import com.shopwell.Product;
+import com.shopwell.enums.PRODUCTCATEGORY;
+import com.shopwell.products.Product;
 import lombok.Getter;
 import org.apache.poi.ss.usermodel.*;
 
@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 @Getter
 public class ExcelManager {
-    private static final String FILE_PATH = "src/main/java/com/shopwell/shopwell-inventory.xlsx";
+    private static final String FILE_PATH = "src/main/resources/shopwell-inventory.xlsx";
     public ExcelManager() {
     }
 

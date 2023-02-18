@@ -1,6 +1,6 @@
 package com.shopwell.services;
 
-import com.shopwell.Product;
+import com.shopwell.products.Product;
 import com.shopwell.staff.Cashier;
 
 public interface IManagerService {

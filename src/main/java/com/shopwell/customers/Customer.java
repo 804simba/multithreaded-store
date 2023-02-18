@@ -1,9 +1,8 @@
-package com.shopwell;
+package com.shopwell.customers;
 
+import com.shopwell.products.Product;
 import lombok.Getter;
-import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 

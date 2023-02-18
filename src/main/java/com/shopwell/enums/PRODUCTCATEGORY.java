@@ -1,4 +1,4 @@
-package com.shopwell;
+package com.shopwell.enums;
 
 public enum PRODUCTCATEGORY {
     ELECTRONICS, BEVERAGES, GROCERIES, TOILETRIES;

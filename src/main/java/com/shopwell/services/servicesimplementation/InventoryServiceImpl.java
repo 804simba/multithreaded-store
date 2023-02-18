@@ -1,6 +1,6 @@
 package com.shopwell.services.servicesimplementation;
 
-import com.shopwell.Product;
+import com.shopwell.products.Product;
 import com.shopwell.Store;
 import com.shopwell.services.IInventoryService;
 import lombok.AccessLevel;

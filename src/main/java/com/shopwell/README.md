@@ -1,2 +1,2 @@
 This is project that involves updating a store's catalog via writing and reading a Spreadsheet file using Java OOP and Apache POI package.
-![img.png](img.png)https://raw.githubusercontent.com/decadevs/week-2-task-timolisa/main/src/main/java/com/shopwell/img.png?token=GHSAT0AAAAAAB5D37WQDZMMEZOEI4NUXQT2Y7MQXIQ
+![img.png](../../../resources/img.png)https://raw.githubusercontent.com/decadevs/week-2-task-timolisa/main/src/main/java/com/shopwell/img.png?token=GHSAT0AAAAAAB5D37WQDZMMEZOEI4NUXQT2Y7MQXIQ

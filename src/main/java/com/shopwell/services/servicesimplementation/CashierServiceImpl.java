@@ -1,7 +1,7 @@
 package com.shopwell.services.servicesimplementation;
 
-import com.shopwell.Customer;
-import com.shopwell.Product;
+import com.shopwell.customers.Customer;
+import com.shopwell.products.Product;
 import com.shopwell.Store;
 import com.shopwell.services.ICashierService;
 import com.shopwell.staff.Cashier;

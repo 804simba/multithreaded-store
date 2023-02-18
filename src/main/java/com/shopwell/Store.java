@@ -1,7 +1,8 @@
 package com.shopwell;
 
+import com.shopwell.products.Product;
 import com.shopwell.staff.Cashier;
-import com.shopwell.staff.ExcelManager;
+import com.shopwell.utilities.ExcelManager;
 import com.shopwell.staff.Manager;
 import lombok.Getter;
 

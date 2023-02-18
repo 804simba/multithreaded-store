@@ -1,5 +1,6 @@
-package com.shopwell;
+package com.shopwell.products;
 
+import com.shopwell.enums.PRODUCTCATEGORY;
 import lombok.Getter;
 import lombok.Setter;
 

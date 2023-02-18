@@ -1,9 +1,10 @@
 package com.shopwell.staff;
 
-import com.shopwell.Customer;
-import com.shopwell.PRODUCTCATEGORY;
-import com.shopwell.Product;
+import com.shopwell.customers.Customer;
+import com.shopwell.enums.PRODUCTCATEGORY;
+import com.shopwell.products.Product;
 import com.shopwell.Store;
+import com.shopwell.enums.Role;
 import com.shopwell.services.ICashierService;
 import com.shopwell.services.IManagerService;
 import com.shopwell.services.servicesimplementation.CashierServiceImpl;

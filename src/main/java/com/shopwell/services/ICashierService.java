@@ -1,7 +1,7 @@
 package com.shopwell.services;
 
-import com.shopwell.Customer;
-import com.shopwell.Product;
+import com.shopwell.customers.Customer;
+import com.shopwell.products.Product;
 
 public interface ICashierService {
     void checkOutCustomer(Customer customer);

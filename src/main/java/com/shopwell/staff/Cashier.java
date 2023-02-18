@@ -1,8 +1,9 @@
 package com.shopwell.staff;
 
-import com.shopwell.Customer;
-import com.shopwell.Product;
+import com.shopwell.customers.Customer;
+import com.shopwell.products.Product;
 import com.shopwell.Store;
+import com.shopwell.enums.Role;
 import lombok.Getter;
 import lombok.Setter;
 

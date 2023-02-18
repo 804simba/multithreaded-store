@@ -1,6 +1,6 @@
 package com.shopwell.services;
 
-import com.shopwell.Product;
+import com.shopwell.products.Product;
 
 public interface ICustomerService {
     void addToCart(Product product, int quantity);

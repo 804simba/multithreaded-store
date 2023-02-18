@@ -1,6 +1,7 @@
 package com.shopwell.staff;
 
 import com.shopwell.Store;
+import com.shopwell.enums.Role;
 import lombok.Getter;
 
 import java.util.Iterator;
