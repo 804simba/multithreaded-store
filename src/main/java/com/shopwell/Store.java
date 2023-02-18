@@ -20,11 +20,11 @@ public class Store {
     private final List<Cashier> cashiersList = new LinkedList<>();
     private final List<Product> productsList = new LinkedList<>();
 
-    private final Queue<Customer> customerQueue;
+    private Queue<Customer> customerQueue;
 
     private ExcelManager excelManager;
 
-    public Store(String name,Double accountBalance) {
+    public Store(String name, Double accountBalance) {
         this.name = name;
         this.accountBalance = accountBalance;
         try {
@@ -84,7 +84,7 @@ public class Store {
         return false;
     }
 
-    public int ReadAllProductsInExcelSheet(){
+    public int ReadAllProductsInExcelSheet() {
         try {
             return excelManager.printAllDataFromExcel();
         } catch (Exception e) {
@@ -96,25 +96,27 @@ public class Store {
     public void addProductToExcel(Product product) {
         excelManager.addProductToInventory(product);
     }
+
     public void updateProductQtyInExcel(Product product, int quantity) {
         excelManager.updateProductQuantity(product, quantity);
     }
 
     public void addCustomerToQueue(Customer customer) {
         customerQueue.offer(customer);
-        String s = String.format("%s joined the queue...\n", customer.getName());
+        String s = String.format("%s joined the queue at %s...\n", customer.getName(), customer.getTimeOfArrival().toString());
         System.out.println(s);
     }
 
-    public void serveCustomers() {
+    public Customer serveCustomersBasedOnFIFO(Cashier cashier) {
         Customer nextCustomer;
-        while(!customerQueue.isEmpty()) {
+        while (!customerQueue.isEmpty()) {
             nextCustomer = customerQueue.poll();
             String s = String.format("Attending to %s\n", nextCustomer.getName());
             System.out.printf(s);
-//            return nextCustomer;
+            cashier.checkOutCustomer(nextCustomer);
+            return nextCustomer;
         }
-//        return null;
+        return null;
     }
 
     @Override

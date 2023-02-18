@@ -3,6 +3,8 @@ package com.shopwell.customers;
 import com.shopwell.products.Product;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,12 +14,13 @@ public class Customer implements Comparable<Customer> {
     private final String name;
     private Double creditCardBalance;
     private final List<Product> cart;
-    private final Long timeOfArrival = System.currentTimeMillis();
+    private final String timeOfArrival;
 
     public Customer(String name, Double creditCardBalance) {
         this.name = name;
         this.creditCardBalance = creditCardBalance;
         this.cart = new LinkedList<>();
+        timeOfArrival = LocalDateTime.now().toString();
     }
 
     public void addProductToCart(Product product, Integer quantity) {
@@ -38,5 +41,13 @@ public class Customer implements Comparable<Customer> {
     @Override
     public int compareTo(Customer o) {
         return this.getTimeOfArrival().compareTo(o.getTimeOfArrival());
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "name='" + name + '\'' +
+                ", timeOfArrival='" + timeOfArrival + '\'' +
+                '}';
     }
 }

@@ -34,4 +34,5 @@ public class CashierServiceImpl implements ICashierService {
     public void issueReceipt(Customer customer, double totalPrice) {
         cashier.issueReceipt(customer, totalPrice);
     }
+
 }

@@ -75,11 +75,12 @@ class StoreTest {
     }
 
     @Test
-    void shouldServeCustomersOneAtATime() {
+    void shouldServeCustomersBasedOnFIFO() {
         store.addCustomerToQueue(customer);
         store.addCustomerToQueue(customer2);
+        store.serveCustomersBasedOnFIFO(cashier);
+        store.serveCustomersBasedOnFIFO(cashier);
         Integer expected = 0;
-        store.serveCustomers();
         Integer actual = store.getCustomerQueue().size();
         assertEquals(expected, actual);
     }

@@ -14,33 +14,40 @@ import com.shopwell.staff.Manager;
 public class Main {
     public static void main(String[] args) {
         Store store = new Store("shopwell", 100000.0);
-
-        Product rice = new Product("Rice", 2000, PRODUCTCATEGORY.GROCERIES, 11);
-        Product beer = new Product("Beer", 20, PRODUCTCATEGORY.GROCERIES, 10);
 //
-        Product soap = new Product("Soap", 100, PRODUCTCATEGORY.TOILETRIES, 30);
-        Product perfume = new Product("Dior Perfume", 10, PRODUCTCATEGORY.TOILETRIES, 20);
-        Product samsung = new Product("Samsung TV", 1000, PRODUCTCATEGORY.ELECTRONICS, 20);
-        Product iphone = new Product("iPhone 14 Pro", 20000, PRODUCTCATEGORY.ELECTRONICS, 20);
-
-        Manager manager = new Manager("Jay", Role.MANAGER, store);
-        Cashier cashier = new Cashier("Sarah Mac", Role.CASHIER, store);
-
-        IManagerService ms = new ManagerServiceImpl(manager, store);
-        ms.hireStaff(cashier);
-        ICashierService cs = new CashierServiceImpl(cashier, store);
-
-        ms.addProduct(rice);
-
-        System.out.println("New customer.");
+//        Product rice = new Product("Rice", 2000, PRODUCTCATEGORY.GROCERIES, 11);
+//        Product beer = new Product("Beer", 20, PRODUCTCATEGORY.GROCERIES, 10);
+//        Product soap = new Product("Soap", 100, PRODUCTCATEGORY.TOILETRIES, 30);
+//        Product perfume = new Product("Dior Perfume", 10, PRODUCTCATEGORY.TOILETRIES, 20);
+//        Product samsung = new Product("Samsung TV", 1000, PRODUCTCATEGORY.ELECTRONICS, 20);
+//        Product iphone = new Product("iPhone 14 Pro", 20000, PRODUCTCATEGORY.ELECTRONICS, 20);
+//
+//        Manager manager = new Manager("Jay", Role.MANAGER, store);
+//        Cashier cashier = new Cashier("Sarah Mac", Role.CASHIER, store);
+//
+//        IManagerService ms = new ManagerServiceImpl(manager, store);
+//        ms.hireStaff(cashier);
+//        ICashierService cs = new CashierServiceImpl(cashier, store);
+//
+//        ms.addProduct(rice);
+//
+//        System.out.println("New customer.");
         Customer customer = new Customer("Hov", 20000.0);
+        Customer customer2 = new Customer("Ye", 20000.0);
+        Customer customer3 = new Customer("Rih", 20000.0);
+//
+//        customer.addProductToCart(rice, 1);
+//
+//        cs.checkOutCustomer(customer);
+//
+//        System.out.println("Balance " + store.getDailySalesAccount());
+//        System.out.println("Rice: " + rice.getProductQuantity());
 
-        customer.addProductToCart(rice, 1);
-
-        cs.checkOutCustomer(customer);
-
-        System.out.println("Balance " + store.getDailySalesAccount());
-        System.out.println("Rice: " + rice.getProductQuantity());
-
+        System.out.printf("%s entered at %s\n", customer.getName(), customer.getTimeOfArrival());
+        store.addCustomerToQueue(customer);
+        store.addCustomerToQueue(new Customer("Angela", 200.0));
+        store.addCustomerToQueue(customer2);
+        store.addCustomerToQueue(customer3);
+        System.out.println(store.getCustomerQueue());
     }
 }
