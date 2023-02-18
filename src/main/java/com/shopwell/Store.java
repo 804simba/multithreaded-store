@@ -20,7 +20,7 @@ public class Store {
     private final List<Cashier> cashiersList = new LinkedList<>();
     private final List<Product> productsList = new LinkedList<>();
 
-    private Queue<Customer> customerQueue;
+    private final Queue<Customer> customerQueue;
 
     private ExcelManager excelManager;
 
@@ -107,16 +107,14 @@ public class Store {
         System.out.println(s);
     }
 
-    public Customer serveCustomersBasedOnFIFO(Cashier cashier) {
+    public void serveCustomersBasedOnFIFO(Cashier cashier) {
         Customer nextCustomer;
         while (!customerQueue.isEmpty()) {
             nextCustomer = customerQueue.poll();
             String s = String.format("Attending to %s\n", nextCustomer.getName());
             System.out.printf(s);
             cashier.checkOutCustomer(nextCustomer);
-            return nextCustomer;
         }
-        return null;
     }
 
     @Override
