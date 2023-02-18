@@ -13,11 +13,12 @@ import com.shopwell.staff.Manager;
 
 public class Main {
     public static void main(String[] args) {
-        Store store = new Store("shopwell", 100000.0);
-//
-//        Product rice = new Product("Rice", 2000, PRODUCTCATEGORY.GROCERIES, 11);
-//        Product beer = new Product("Beer", 20, PRODUCTCATEGORY.GROCERIES, 10);
-//        Product soap = new Product("Soap", 100, PRODUCTCATEGORY.TOILETRIES, 30);
+//        Store store = new Store("shopwell", 100000.0);
+        Store store2 = new Store("shopwell", 100000.0, new CustomerComparator());
+
+        Product rice = new Product("Rice", 2000, PRODUCTCATEGORY.GROCERIES, 11);
+        Product beer = new Product("Beer", 20, PRODUCTCATEGORY.GROCERIES, 10);
+        Product soap = new Product("Soap", 100, PRODUCTCATEGORY.TOILETRIES, 30);
 //        Product perfume = new Product("Dior Perfume", 10, PRODUCTCATEGORY.TOILETRIES, 20);
 //        Product samsung = new Product("Samsung TV", 1000, PRODUCTCATEGORY.ELECTRONICS, 20);
 //        Product iphone = new Product("iPhone 14 Pro", 20000, PRODUCTCATEGORY.ELECTRONICS, 20);
@@ -32,22 +33,36 @@ public class Main {
 //        ms.addProduct(rice);
 //
 //        System.out.println("New customer.");
-        Customer customer = new Customer("Hov", 20000.0);
+//        Customer customer = new Customer("Hov", 20000.0);
         Customer customer2 = new Customer("Ye", 20000.0);
         Customer customer3 = new Customer("Rih", 20000.0);
+
 //
 //        customer.addProductToCart(rice, 1);
-//
+        customer2.addProductToCart(rice, 1);
+        customer2.addProductToCart(rice, 1);
+        customer2.addProductToCart(rice, 1);
+        customer2.addProductToCart(rice, 1);
+        customer2.addProductToCart(rice, 1);
+        customer2.addProductToCart(beer, 1);
+        customer3.addProductToCart(rice, 1);
+        customer3.addProductToCart(beer, 1);
+        customer3.addProductToCart(soap, 1);
+        customer3.addProductToCart(soap, 1);
+
+//        store.addCustomerToQueue(customer2);
+//        store.addCustomerToQueue(customer3);
+//        System.out.println(store.getCustomerQueue().peek());
+////
 //        cs.checkOutCustomer(customer);
 //
 //        System.out.println("Balance " + store.getDailySalesAccount());
 //        System.out.println("Rice: " + rice.getProductQuantity());
 
-        System.out.printf("%s entered at %s\n", customer.getName(), customer.getTimeOfArrival());
-        store.addCustomerToQueue(customer);
-        store.addCustomerToQueue(new Customer("Angela", 200.0));
-        store.addCustomerToQueue(customer2);
-        store.addCustomerToQueue(customer3);
-        System.out.println(store.getCustomerQueue());
+//        System.out.printf("%s entered at %s\n", customer.getName(), customer.getTimeOfArrival());
+//        store.addCustomerToQueue(customer);
+        store2.addCustomerToQueue(customer3);
+        store2.addCustomerToQueue(customer2);
+        System.out.println(store2.getCustomerQueue().peek());
     }
 }

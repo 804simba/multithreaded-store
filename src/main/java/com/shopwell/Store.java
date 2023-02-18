@@ -7,18 +7,15 @@ import com.shopwell.utilities.ExcelManager;
 import com.shopwell.staff.Manager;
 import lombok.Getter;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 @Getter
 public class Store {
     private final String name;
     private Double accountBalance;
     protected Double dailySalesAccount = 0.0;
-    private final List<Cashier> cashiersList = new LinkedList<>();
-    private final List<Product> productsList = new LinkedList<>();
+    private final List<Cashier> cashiersList = new ArrayList<>();
+    private final List<Product> productsList = new ArrayList<>();
 
     private final Queue<Customer> customerQueue;
 
@@ -110,6 +107,16 @@ public class Store {
     public void serveCustomersBasedOnFIFO(Cashier cashier) {
         Customer nextCustomer;
         while (!customerQueue.isEmpty()) {
+            nextCustomer = customerQueue.poll();
+            String s = String.format("Attending to %s\n", nextCustomer.getName());
+            System.out.printf(s);
+            cashier.checkOutCustomer(nextCustomer);
+        }
+    }
+
+    public void serveCustomersBasedOnNumberOfItems(Cashier cashier) {
+        Customer nextCustomer;
+        while(!customerQueue.isEmpty()) {
             nextCustomer = customerQueue.poll();
             String s = String.format("Attending to %s\n", nextCustomer.getName());
             System.out.printf(s);
