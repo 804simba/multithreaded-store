@@ -34,6 +34,7 @@ class StoreTest {
         customer = new Customer("Jude King", 120000.0);
         customer2 = new Customer("Kanye West", 400000.0);
         customer.addProductToCart(product, 2);
+        customer2.addProductToCart(product, 5);
         cs = new CashierServiceImpl(cashier, store);
         ms = new ManagerServiceImpl(manager, store);
         ms.addProduct(product);
@@ -69,6 +70,16 @@ class StoreTest {
         store.addCustomerToQueue(customer);
         store.addCustomerToQueue(customer2);
         Integer expected = 2;
+        Integer actual = store.getCustomerQueue().size();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldServeCustomersOneAtATime() {
+        store.addCustomerToQueue(customer);
+        store.addCustomerToQueue(customer2);
+        Integer expected = 0;
+        store.serveCustomers();
         Integer actual = store.getCustomerQueue().size();
         assertEquals(expected, actual);
     }

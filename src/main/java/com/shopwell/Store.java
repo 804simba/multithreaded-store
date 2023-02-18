@@ -102,7 +102,19 @@ public class Store {
 
     public void addCustomerToQueue(Customer customer) {
         customerQueue.offer(customer);
-        System.out.println("Added customer...");
+        String s = String.format("%s joined the queue...\n", customer.getName());
+        System.out.println(s);
+    }
+
+    public void serveCustomers() {
+        Customer nextCustomer;
+        while(!customerQueue.isEmpty()) {
+            nextCustomer = customerQueue.poll();
+            String s = String.format("Attending to %s\n", nextCustomer.getName());
+            System.out.printf(s);
+//            return nextCustomer;
+        }
+//        return null;
     }
 
     @Override
