@@ -8,9 +8,9 @@ import java.util.List;
 
 @Getter
 public class Customer {
-    private String name;
+    private final String name;
     private double creditCardBalance;
-    private List<Product> cart;
+    private final List<Product> cart;
 
     public Customer(String name, double creditCardBalance) {
         this.name = name;

@@ -1,21 +1,27 @@
 package com.shopwell;
 
+import com.shopwell.customers.Customer;
 import com.shopwell.products.Product;
 import com.shopwell.staff.Cashier;
+import com.shopwell.utilities.CustomerComparator;
 import com.shopwell.utilities.ExcelManager;
 import com.shopwell.staff.Manager;
 import lombok.Getter;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 @Getter
 public class Store {
-    private String name;
+    private final String name;
     private double accountBalance;
     protected double dailySalesAccount = 0;
-    private List<Cashier> cashiersList = new LinkedList<>();
-    private List<Product> productsList = new LinkedList<>();
+    private final List<Cashier> cashiersList = new LinkedList<>();
+    private final List<Product> productsList = new LinkedList<>();
+
+    private final Queue<Customer> customerQueue;
 
     private ExcelManager excelManager;
 
@@ -27,11 +33,24 @@ public class Store {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        this.customerQueue = new PriorityQueue<>();
+    }
+
+    public Store(String name, double accountBalance, CustomerComparator cus) {
+        this.name = name;
+        this.accountBalance = accountBalance;
+        try {
+            this.excelManager = new ExcelManager();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.customerQueue = new PriorityQueue<>(10, cus);
     }
 
     public double checkAccountBalance(Object other) {
-        if (other instanceof Manager)
+        if (other instanceof Manager) {
             return accountBalance;
+        }
         return 0.0;
     }
 

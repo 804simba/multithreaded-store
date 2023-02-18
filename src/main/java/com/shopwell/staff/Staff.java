@@ -6,9 +6,9 @@ import lombok.Getter;
 
 @Getter
 public abstract class Staff {
-    private String name;
+    private final String name;
     private int StaffID = 1400;
-    private Role role;
+    private final Role role;
     protected Store store;
 
     public Staff(String name, Role role, Store store) {

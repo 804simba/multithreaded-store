@@ -30,11 +30,11 @@ public class Cashier extends Staff {
     public boolean checkOutCustomer(Customer customer) {
         double totalCost = 0.0;
         List<Product> customerCart = customer.getCart();
-        Iterator i = customerCart.iterator();
+        Iterator<Product> i = customerCart.iterator();
 
         while(i.hasNext()) {
-            Product cartItem = (Product) i.next();
-            if (store.isAvailable(cartItem) == true) {
+            Product cartItem = i.next();
+            if (store.isAvailable(cartItem)) {
                 totalCost += cartItem.getProductPrice() * cartItem.getProductQuantity();
                 updateProductQuantity(cartItem, cartItem.getProductQuantity());
             } else {
@@ -49,6 +49,7 @@ public class Cashier extends Staff {
             updateCompanyBalance(totalCost);
             issueReceipt(customer, totalCost);
             customer.getCart().clear();
+            System.out.println("Thank you...");
             return true;
         } else {
             System.out.println("Insufficient funds.");
@@ -71,8 +72,7 @@ public class Cashier extends Staff {
         store.setDailySalesAccount(store.getDailySalesAccount() + amount, this);
     }
 
-    public void issueReceipt(Customer customer, double total) {
-        double totalPrice = total;
+    public void issueReceipt(Customer customer, double totalPrice) {
         List<Product> customerOrders = customer.getCart();
         int sNo = 0;
         System.out.println("<### RECEIPT ###>");
