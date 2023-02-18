@@ -13,7 +13,7 @@ import com.shopwell.staff.Manager;
 
 public class Main {
     public static void main(String[] args) {
-        Store store = new Store("shopwell", 100000);
+        Store store = new Store("shopwell", 100000.0);
 
         Product rice = new Product("Rice", 2000, PRODUCTCATEGORY.GROCERIES, 11);
         Product beer = new Product("Beer", 20, PRODUCTCATEGORY.GROCERIES, 10);
@@ -33,7 +33,7 @@ public class Main {
         ms.addProduct(rice);
 
         System.out.println("New customer.");
-        Customer customer = new Customer("Hov", 20000);
+        Customer customer = new Customer("Hov", 20000.0);
 
         customer.addProductToCart(rice, 1);
 

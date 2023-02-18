@@ -3,7 +3,6 @@ package com.shopwell;
 import com.shopwell.customers.Customer;
 import com.shopwell.products.Product;
 import com.shopwell.staff.Cashier;
-import com.shopwell.utilities.CustomerComparator;
 import com.shopwell.utilities.ExcelManager;
 import com.shopwell.staff.Manager;
 import lombok.Getter;
@@ -16,8 +15,8 @@ import java.util.Queue;
 @Getter
 public class Store {
     private final String name;
-    private double accountBalance;
-    protected double dailySalesAccount = 0;
+    private Double accountBalance;
+    protected Double dailySalesAccount = 0.0;
     private final List<Cashier> cashiersList = new LinkedList<>();
     private final List<Product> productsList = new LinkedList<>();
 
@@ -25,7 +24,7 @@ public class Store {
 
     private ExcelManager excelManager;
 
-    public Store(String name,double accountBalance) {
+    public Store(String name,Double accountBalance) {
         this.name = name;
         this.accountBalance = accountBalance;
         try {
@@ -36,7 +35,7 @@ public class Store {
         this.customerQueue = new PriorityQueue<>();
     }
 
-    public Store(String name, double accountBalance, CustomerComparator cus) {
+    public Store(String name, Double accountBalance, CustomerComparator cus) {
         this.name = name;
         this.accountBalance = accountBalance;
         try {
@@ -54,7 +53,7 @@ public class Store {
         return 0.0;
     }
 
-    public void setDailySalesAccount(double amount, Object other) {
+    public void setDailySalesAccount(Double amount, Object other) {
         if (other instanceof Cashier) {
             dailySalesAccount += amount;
             return;
@@ -62,7 +61,7 @@ public class Store {
         System.out.println("You don't have access to update this account.");
     }
 
-    public void updateStoreAccountBalance(double totalDailySales, Object other) {
+    public void updateStoreAccountBalance(Double totalDailySales, Object other) {
         if (other instanceof Manager)
             accountBalance += totalDailySales;
     }
@@ -99,6 +98,11 @@ public class Store {
     }
     public void updateProductQtyInExcel(Product product, int quantity) {
         excelManager.updateProductQuantity(product, quantity);
+    }
+
+    public void addCustomerToQueue(Customer customer) {
+        customerQueue.offer(customer);
+        System.out.println("Added customer...");
     }
 
     @Override

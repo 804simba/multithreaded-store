@@ -1,4 +1,4 @@
-package com.shopwell.utilities;
+package com.shopwell;
 
 import com.shopwell.customers.Customer;
 
