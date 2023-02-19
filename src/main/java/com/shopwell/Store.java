@@ -101,7 +101,7 @@ public class Store {
 
     public void addCustomerToQueue(Customer customer) {
         customerQueue.offer(customer);
-        String s = String.format("%s joined the queue at %s...\n", customer.getName(), customer.getTimeOfArrival().toString());
+        String s = String.format("%s joined the queue with %d items in their cart at %s...\n", customer.getName(), customer.getCart().size(), customer.getTimeOfArrival().toString());
         System.out.println(s);
     }
 
