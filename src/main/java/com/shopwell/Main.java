@@ -10,59 +10,48 @@ import com.shopwell.services.servicesimplementation.ManagerServiceImpl;
 import com.shopwell.staff.Cashier;
 import com.shopwell.enums.Role;
 import com.shopwell.staff.Manager;
+import com.shopwell.utilities.CustomerComparator;
 
 public class Main {
     public static void main(String[] args) {
 //        Store store = new Store("shopwell", 100000.0);
         Store store2 = new Store("shopwell", 100000.0, new CustomerComparator());
 
-        Product rice = new Product("Rice", 2000, PRODUCTCATEGORY.GROCERIES, 11);
-        Product beer = new Product("Beer", 20, PRODUCTCATEGORY.GROCERIES, 10);
-        Product soap = new Product("Soap", 100, PRODUCTCATEGORY.TOILETRIES, 30);
-//        Product perfume = new Product("Dior Perfume", 10, PRODUCTCATEGORY.TOILETRIES, 20);
-//        Product samsung = new Product("Samsung TV", 1000, PRODUCTCATEGORY.ELECTRONICS, 20);
-//        Product iphone = new Product("iPhone 14 Pro", 20000, PRODUCTCATEGORY.ELECTRONICS, 20);
+        Product rice = new Product("Rice", 2000, PRODUCTCATEGORY.GROCERIES, 110);
+        Product beer = new Product("Beer", 20, PRODUCTCATEGORY.GROCERIES, 100);
+        Product soap = new Product("Soap", 100, PRODUCTCATEGORY.TOILETRIES, 300);
+
+        Manager manager = new Manager("Jay", Role.MANAGER, store2);
+        Cashier cashier = new Cashier("Sarah Mac", Role.CASHIER, store2);
+
+        IManagerService ms = new ManagerServiceImpl(manager, store2);
+        ms.hireStaff(cashier);
+        ICashierService cs = new CashierServiceImpl(cashier, store2);
+
+        ms.addProduct(rice);
+        ms.addProduct(beer);
+        ms.addProduct(soap);
 //
-//        Manager manager = new Manager("Jay", Role.MANAGER, store);
-//        Cashier cashier = new Cashier("Sarah Mac", Role.CASHIER, store);
-//
-//        IManagerService ms = new ManagerServiceImpl(manager, store);
-//        ms.hireStaff(cashier);
-//        ICashierService cs = new CashierServiceImpl(cashier, store);
-//
-//        ms.addProduct(rice);
-//
-//        System.out.println("New customer.");
-//        Customer customer = new Customer("Hov", 20000.0);
-        Customer customer2 = new Customer("Ye", 20000.0);
-        Customer customer3 = new Customer("Rih", 20000.0);
+        System.out.println("New customers...");
+        Customer customer = new Customer("Hov", 20000.0);
+        Customer customer2 = new Customer("Musa", 20000.0);
+        Customer customer3 = new Customer("Hannah", 200000000.0);
 
 //
-//        customer.addProductToCart(rice, 1);
+        customer.addProductToCart(rice, 5);
+        customer.addProductToCart(rice, 5);
+        customer.addProductToCart(rice, 5);
+        customer.addProductToCart(rice, 5);
+        customer.addProductToCart(rice, 5);
+
         customer2.addProductToCart(rice, 1);
-        customer2.addProductToCart(rice, 1);
-        customer2.addProductToCart(rice, 1);
-        customer2.addProductToCart(rice, 1);
-        customer2.addProductToCart(rice, 1);
-        customer2.addProductToCart(beer, 1);
-        customer3.addProductToCart(rice, 1);
+        customer3.addProductToCart(rice, 11);
         customer3.addProductToCart(beer, 1);
         customer3.addProductToCart(soap, 1);
-        customer3.addProductToCart(soap, 1);
 
-//        store.addCustomerToQueue(customer2);
-//        store.addCustomerToQueue(customer3);
-//        System.out.println(store.getCustomerQueue().peek());
-////
-//        cs.checkOutCustomer(customer);
-//
-//        System.out.println("Balance " + store.getDailySalesAccount());
-//        System.out.println("Rice: " + rice.getProductQuantity());
 
-//        System.out.printf("%s entered at %s\n", customer.getName(), customer.getTimeOfArrival());
-//        store.addCustomerToQueue(customer);
-        store2.addCustomerToQueue(customer3);
         store2.addCustomerToQueue(customer2);
-        System.out.println(store2.getCustomerQueue().peek());
+        store2.addCustomerToQueue(customer3);
+        store2.serveCustomersBasedOnNumberOfItems(cashier);
     }
 }

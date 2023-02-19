@@ -10,6 +10,7 @@ import com.shopwell.services.servicesimplementation.ManagerServiceImpl;
 import com.shopwell.staff.Cashier;
 import com.shopwell.enums.Role;
 import com.shopwell.staff.Manager;
+import com.shopwell.utilities.CustomerComparator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

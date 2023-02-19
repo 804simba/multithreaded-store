@@ -3,6 +3,7 @@ package com.shopwell;
 import com.shopwell.customers.Customer;
 import com.shopwell.products.Product;
 import com.shopwell.staff.Cashier;
+import com.shopwell.utilities.CustomerComparator;
 import com.shopwell.utilities.ExcelManager;
 import com.shopwell.staff.Manager;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import java.util.*;
 public class Store {
     private final String name;
     private Double accountBalance;
-    protected Double dailySalesAccount = 0.0;
+    private Double dailySalesAccount = 0.0;
     private final List<Cashier> cashiersList = new ArrayList<>();
     private final List<Product> productsList = new ArrayList<>();
 
@@ -85,7 +86,7 @@ public class Store {
         try {
             return excelManager.printAllDataFromExcel();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         return -1;
     }
