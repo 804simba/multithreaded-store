@@ -1,4 +1,4 @@
-package com.shopwell.staff;
+package com.shopwell.utilities;
 
 import com.shopwell.enums.PRODUCTCATEGORY;
 import com.shopwell.products.Product;

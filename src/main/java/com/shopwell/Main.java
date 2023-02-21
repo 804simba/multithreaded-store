@@ -40,7 +40,7 @@ public class Main {
         Customer customer2 = new Customer("Musa", 20000.0);
         Customer customer3 = new Customer("Hannah", 200000000.0);
         Customer customer4 = new Customer("James", 200000000.0);
-        Customer customer5 = new Customer("James", 200000000.0);
+        Customer customer5 = new Customer("John", 200000000.0);
 
 //
         customer1.addProductToCart(rice, 5);
@@ -48,16 +48,20 @@ public class Main {
         customer1.addProductToCart(rice, 5);
         customer1.addProductToCart(rice, 5);
         customer1.addProductToCart(rice, 5);
+        System.out.println("------------------>");
 
         customer2.addProductToCart(rice, 1);
+        System.out.println("------------------>");
 
         customer3.addProductToCart(rice, 11);
         customer3.addProductToCart(beer, 1);
         customer3.addProductToCart(soap, 1);
+        System.out.println("------------------>");
 
         customer4.addProductToCart(soap, 1);
         customer4.addProductToCart(soap, 1);
         customer4.addProductToCart(soap, 1);
+        System.out.println("------------------>");
 
         customer5.addProductToCart(soap, 1);
         customer5.addProductToCart(soap, 1);
@@ -67,6 +71,7 @@ public class Main {
         customer5.addProductToCart(soap, 1);
         customer5.addProductToCart(soap, 1);
         customer5.addProductToCart(soap, 1);
+        System.out.println("------------------>");
 
 
         store2.addCustomerToQueue(customer4);
@@ -74,7 +79,7 @@ public class Main {
         store2.addCustomerToQueue(customer3);
         store2.addCustomerToQueue(customer1);
         store2.addCustomerToQueue(customer5);
-//        store2.serveCustomersBasedOnNumberOfItems(cashier);
-        System.out.println(store2.getCustomerQueue());
+        store2.serveCustomersBasedOnNumberOfItems(cashier);
+//        System.out.println(store2.getCustomerQueue());
     }
 }

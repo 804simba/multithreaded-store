@@ -118,7 +118,9 @@ public class Store {
     public void serveCustomersBasedOnNumberOfItems(Cashier cashier) {
         Customer nextCustomer;
         while(!customerQueue.isEmpty()) {
+            System.out.println("------------------>");
             nextCustomer = customerQueue.poll();
+            System.out.println("Queue: " + customerQueue);
             String s = String.format("Attending to %s\n", nextCustomer.getName());
             System.out.printf(s);
             cashier.checkOutCustomer(nextCustomer);
