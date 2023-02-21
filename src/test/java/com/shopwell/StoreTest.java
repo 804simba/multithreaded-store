@@ -21,6 +21,7 @@ class StoreTest {
     Store store;
     Store store2;
     Cashier cashier;
+    Cashier cashier2;
     ICashierService cs;
     Customer customer;
     Customer customer2;
@@ -29,7 +30,7 @@ class StoreTest {
     Product product2;
     Product product3;
     IManagerService ms;
-    IManagerService msNumberOfItems;
+    IManagerService ms2;
 
     @BeforeEach
     void init() {
@@ -38,7 +39,7 @@ class StoreTest {
         product1 = new Product("Tissue", 20.0, PRODUCTCATEGORY.TOILETRIES, 10);
         product2 = new Product("Bread", 120.0, PRODUCTCATEGORY.GROCERIES, 10);
         product3 = new Product("Samsung TV", 100.0, PRODUCTCATEGORY.ELECTRONICS, 10);
-        cashier = new Cashier("The Undertaker", Role.CASHIER, store);
+        cashier = new Cashier("Sarah Palin", Role.CASHIER, store);
         customer = new Customer("Burna Boy", 120000.0);
         customer2 = new Customer("Kanye West", 400000.0);
         customer3 = new Customer("Drake Graham", 500000.0);
@@ -53,11 +54,12 @@ class StoreTest {
 
         // Store based on higher Priority for customers who bought the most items.
         store2 = new Store("shopwell2", 100000.0, new CustomerComparator());
-        msNumberOfItems = new ManagerServiceImpl(manager, store2);
-        msNumberOfItems.addProduct(product1);
-        msNumberOfItems.addProduct(product2);
-        msNumberOfItems.addProduct(product3);
-        msNumberOfItems.hireStaff(cashier);
+        ms2 = new ManagerServiceImpl(manager, store2);
+        cashier2 = new Cashier("Angela Yu", Role.CASHIER, store2);
+        ms2.hireStaff(cashier2);
+        ms2.addProduct(product1);
+        ms2.addProduct(product2);
+        ms2.addProduct(product3);
     }
     @Test
     void checkAccountBalance() {
@@ -66,7 +68,7 @@ class StoreTest {
 
     @Test
     void shouldUpdateStoreAccountBalance() {
-        Double expected = 100240.0;
+        Double expected = 100040.0;
         cs.checkOutCustomer(customer);
         ms.addSalesToCompanyAccount(store.getDailySalesAccount());
         Double actual = store.getAccountBalance();
@@ -75,7 +77,7 @@ class StoreTest {
 
     @Test
     void shouldAddCashier() {
-        assertEquals(1, store.getCashiersList().size());
+        assertEquals(2, store.getCashiersList().size());
     }
 
     @Test
