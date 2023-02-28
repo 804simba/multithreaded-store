@@ -2,6 +2,10 @@ package com.shopwell;
 
 import com.shopwell.customers.Customer;
 import com.shopwell.products.Product;
+import com.shopwell.services.IAccountableManager;
+import com.shopwell.services.IEmployeeManager;
+import com.shopwell.services.IInventoryManager;
+import com.shopwell.services.IQueueManager;
 import com.shopwell.staff.Cashier;
 import com.shopwell.utilities.CustomerComparator;
 import com.shopwell.utilities.ExcelManager;
@@ -11,7 +15,7 @@ import lombok.Getter;
 import java.util.*;
 
 @Getter
-public class Store {
+public class Store implements IAccountableManager, IEmployeeManager, IInventoryManager, IQueueManager {
     private final String name;
     private Double accountBalance;
     private Double dailySalesAccount = 0.0;
@@ -43,14 +47,14 @@ public class Store {
         }
         this.customerQueue = new PriorityQueue<>(10, cus);
     }
-
+    @Override
     public double checkAccountBalance(Object other) {
         if (other instanceof Manager) {
             return accountBalance;
         }
         return 0.0;
     }
-
+    @Override
     public void setDailySalesAccount(Double amount, Object other) {
         if (other instanceof Cashier) {
             dailySalesAccount += amount;
@@ -58,22 +62,22 @@ public class Store {
         }
         System.out.println("You don't have access to update this account.");
     }
-
+    @Override
     public void updateStoreAccountBalance(Double totalDailySales, Object other) {
         if (other instanceof Manager)
             accountBalance += totalDailySales;
     }
-
+    @Override
     public void addCashier(Cashier cashier, Object other) {
         if (other instanceof Manager)
             cashiersList.add(cashier);
     }
-
+    @Override
     public void addProducts(Product product, Object other) {
         if (other instanceof Manager)
             productsList.add(product);
     }
-
+    @Override
     public boolean isAvailable(Product product) {
         for (Product storeProduct : getProductsList()) {
             if (storeProduct.getProductName().equals(product.getProductName()) && storeProduct.getProductQuantity() >= product.getProductQuantity())
@@ -98,14 +102,14 @@ public class Store {
     public void updateProductQtyInExcel(Product product, int quantity) {
         excelManager.updateProductQuantity(product, quantity);
     }
-
+    @Override
     public void addCustomerToQueue(Customer customer) {
         customerQueue.offer(customer);
         String s = String.format("%s joined the queue with %d items in their cart at %s...\n", customer.getName(), customer.getCart().size(), customer.getTimeOfArrival().toString());
         System.out.println(s);
         System.out.println("Customers on the queue: " + this.getCustomerQueue());
     }
-
+    @Override
     public void serveCustomersBasedOnFIFO(Cashier cashier) {
         Customer nextCustomer;
         while (!customerQueue.isEmpty()) {
@@ -115,7 +119,7 @@ public class Store {
             cashier.checkOutCustomer(nextCustomer);
         }
     }
-
+    @Override
     public void serveCustomersBasedOnNumberOfItems(Cashier cashier) {
         Customer nextCustomer;
         while(!customerQueue.isEmpty()) {
