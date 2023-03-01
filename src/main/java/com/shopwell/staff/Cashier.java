@@ -4,19 +4,28 @@ import com.shopwell.customers.Customer;
 import com.shopwell.products.Product;
 import com.shopwell.Store;
 import com.shopwell.enums.Role;
+import com.shopwell.services.IQueueManager;
+import com.shopwell.utilities.CartSizeComparator;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Getter @Setter
-public class Cashier extends Staff {
+public class Cashier extends Staff implements Runnable, IQueueManager {
     private boolean employmentStatus;
+    private Queue<Customer> customerQueue;
+    private final Object lock = new Object();
 
     public Cashier(String name, Role role, Store store) {
         super(name, role, store);
         this.employmentStatus = true;
+        this.customerQueue = new PriorityQueue<>(Comparator.comparing(Customer::getTimeOfArrival));
+    }
+    public Cashier(String name, Role role, Store store, CartSizeComparator cartSizeComparator) {
+        super(name, role, store);
+        this.employmentStatus = true;
+        this.customerQueue = new PriorityQueue<>(cartSizeComparator);
     }
 
     public boolean getEmploymentStatus() {
@@ -27,32 +36,35 @@ public class Cashier extends Staff {
         this.employmentStatus = status;
     }
 
-    public boolean checkOutCustomer(Customer customer) {
-        double totalCost = 0.0;
-        List<Product> customerCart = customer.getCart();
-        Iterator<Product> i = customerCart.iterator();
+    public synchronized boolean checkOutCustomer(Customer customer) {
+        try {
+            Thread.sleep(2000);
+            double totalCost = 0.0;
+            List<Product> customerCart = customer.getCart();
 
-        while(i.hasNext()) {
-            Product cartItem = i.next();
-            if (store.isAvailable(cartItem)) {
-                totalCost += cartItem.getProductPrice() * cartItem.getProductQuantity();
-                updateProductQuantity(cartItem, cartItem.getProductQuantity());
-            } else {
-                customerCart.remove(cartItem);
-                System.out.printf("%s is out of stock.\n", cartItem.getProductName());
-                System.out.println();
+            for (Product cartItem : customerCart) {
+                if (store.isAvailable(cartItem)) {
+                    totalCost += cartItem.getProductPrice() * cartItem.getProductQuantity();
+                    updateProductQuantity(cartItem, cartItem.getProductQuantity());
+                } else {
+                    customerCart.remove(cartItem);
+                    System.out.printf("%s is out of stock.\n", cartItem.getProductName());
+                    System.out.println();
+                }
             }
-        }
 
-        if (customer.getCreditCardBalance() >= totalCost) {
-            customer.makePayment(totalCost);
-            updateCompanyBalance(totalCost);
-            issueReceipt(customer, totalCost);
-            customer.getCart().clear();
-            System.out.println("Thank you...");
-            return true;
-        } else {
-            System.out.println("Insufficient funds.");
+            if (customer.getCreditCardBalance() >= totalCost) {
+                customer.makePayment(totalCost);
+                updateCompanyBalance(totalCost);
+                issueReceipt(customer, totalCost);
+                customer.getCart().clear();
+                System.out.println("Thank you...");
+                return true;
+            } else {
+                System.out.println("Insufficient funds.");
+            }
+        } catch (InterruptedException e) {
+            System.err.println(e.getMessage());
         }
         return false;
     }
@@ -84,5 +96,64 @@ public class Cashier extends Staff {
         System.out.printf("Total: %.2f\n", totalPrice);
         System.out.println("Thank you for your patronage.");
         System.out.println("<### See you next time!!! ###>");
+    }
+
+    @Override
+    public synchronized void addCustomersToQueue(Queue<Customer> queue) {
+        customerQueue.addAll(queue);
+        System.out.println("Customers on the queue: " + this.getCustomerQueue());
+    }
+
+//    @Override
+//    public void serveCustomersBasedOnFIFO(Cashier cashier) {
+//        Customer nextCustomer;
+//        while (!customerQueue.isEmpty()) {
+//            nextCustomer = customerQueue.poll();
+//            assert nextCustomer != null;
+//            String s = String.format("Attending to %s\n", nextCustomer.getName());
+//            System.out.printf(s);
+//            checkOutCustomer(nextCustomer);
+//        }
+//    }
+//
+//    @Override
+//    public void serveCustomersBasedOnNumberOfItems(Cashier cashier) {
+//        Customer nextCustomer;
+//        while(!customerQueue.isEmpty()) {
+//            System.out.println("------------------>");
+//            nextCustomer = customerQueue.poll();
+//            System.out.println("Queue: " + customerQueue);
+//            String s = String.format("Attending to %s\n", nextCustomer.getName());
+//            System.out.printf(s);
+//            checkOutCustomer(nextCustomer);
+//        }
+//    }
+
+    @Override
+    public void run() {
+        while (true) {
+            synchronized (lock) {
+                String name = Thread.currentThread().getName();
+                System.out.printf("%s is working...\n", name);
+                while(customerQueue.isEmpty()) {
+                    try {
+                        System.out.println("Customer queue is empty, waiting for arrival of customers...");
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        System.err.println(e.getMessage());
+                    }
+                }
+                Customer nextCustomer = customerQueue.poll();
+                assert nextCustomer != null;
+                checkOutCustomer(nextCustomer);
+                System.out.println("Queue: " + customerQueue);
+                String s = String.format("%s Attending to %s\n", name, nextCustomer.getName());
+                System.out.printf(s);
+            }
+        }
+    }
+    public void startCashierThread() {
+        Thread t = new Thread(this, this.getName());
+        t.start();
     }
 }

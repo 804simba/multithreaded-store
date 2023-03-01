@@ -7,7 +7,7 @@ import com.shopwell.services.IEmployeeManager;
 import com.shopwell.services.IExcelService;
 import com.shopwell.services.IQueueManager;
 import com.shopwell.staff.Cashier;
-import com.shopwell.utilities.CustomerComparator;
+import com.shopwell.utilities.CartSizeComparator;
 import com.shopwell.utilities.ExcelManager;
 import com.shopwell.staff.Manager;
 import lombok.Getter;
@@ -15,15 +15,12 @@ import lombok.Getter;
 import java.util.*;
 
 @Getter
-public class Store implements IAccountableManager, IEmployeeManager, IExcelService, IQueueManager {
+public class Store implements IAccountableManager, IEmployeeManager, IExcelService {
     private final String name;
     private Double accountBalance;
     private Double dailySalesAccount = 0.0;
     private final List<Cashier> cashiersList = new ArrayList<>();
     private final List<Product> productsList = new ArrayList<>();
-
-    private final Queue<Customer> customerQueue;
-
     private ExcelManager excelManager;
 
     public Store(String name, Double accountBalance) {
@@ -34,18 +31,6 @@ public class Store implements IAccountableManager, IEmployeeManager, IExcelServi
         } catch (Exception e) {
             e.printStackTrace();
         }
-        this.customerQueue = new PriorityQueue<>();
-    }
-
-    public Store(String name, Double accountBalance, CustomerComparator cus) {
-        this.name = name;
-        this.accountBalance = accountBalance;
-        try {
-            this.excelManager = new ExcelManager();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        this.customerQueue = new PriorityQueue<>(10, cus);
     }
     @Override
     public double checkAccountBalance(Object other) {
@@ -102,36 +87,6 @@ public class Store implements IAccountableManager, IEmployeeManager, IExcelServi
     public void updateProductQtyInExcel(Product product, int quantity) {
         excelManager.updateProductQuantity(product, quantity);
     }
-    @Override
-    public void addCustomerToQueue(Customer customer) {
-        customerQueue.offer(customer);
-        String s = String.format("%s joined the queue with %d items in their cart at %s...\n", customer.getName(), customer.getCart().size(), customer.getTimeOfArrival().toString());
-        System.out.println(s);
-        System.out.println("Customers on the queue: " + this.getCustomerQueue());
-    }
-    @Override
-    public void serveCustomersBasedOnFIFO(Cashier cashier) {
-        Customer nextCustomer;
-        while (!customerQueue.isEmpty()) {
-            nextCustomer = customerQueue.poll();
-            String s = String.format("Attending to %s\n", nextCustomer.getName());
-            System.out.printf(s);
-            cashier.checkOutCustomer(nextCustomer);
-        }
-    }
-    @Override
-    public void serveCustomersBasedOnNumberOfItems(Cashier cashier) {
-        Customer nextCustomer;
-        while(!customerQueue.isEmpty()) {
-            System.out.println("------------------>");
-            nextCustomer = customerQueue.poll();
-            System.out.println("Queue: " + customerQueue);
-            String s = String.format("Attending to %s\n", nextCustomer.getName());
-            System.out.printf(s);
-            cashier.checkOutCustomer(nextCustomer);
-        }
-    }
-
     @Override
     public String toString() {
         return "Store{" +

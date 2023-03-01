@@ -10,7 +10,11 @@ import com.shopwell.services.servicesimplementation.ManagerServiceImpl;
 import com.shopwell.staff.Cashier;
 import com.shopwell.enums.Role;
 import com.shopwell.staff.Manager;
-import com.shopwell.utilities.CustomerComparator;
+import com.shopwell.utilities.CartSizeComparator;
+
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class Main {
     public static void main(String[] args) {
@@ -18,7 +22,7 @@ public class Main {
         Store store = new Store("shopwell", 100000.0);
 
         // Store that attends to customers based on the customers with the highest number of items in their cart.
-        Store store2 = new Store("shopwell", 100000.0, new CustomerComparator());
+        Store store2 = new Store("shopwell", 100000.0);
 
         Product rice = new Product("Rice", 2000, PRODUCTCATEGORY.GROCERIES, 110);
         Product beer = new Product("Beer", 20, PRODUCTCATEGORY.GROCERIES, 100);
@@ -73,13 +77,9 @@ public class Main {
         customer5.addProductToCart(soap, 1);
         System.out.println("------------------>");
 
-
-        store2.addCustomerToQueue(customer4);
-        store2.addCustomerToQueue(customer2);
-        store2.addCustomerToQueue(customer3);
-        store2.addCustomerToQueue(customer1);
-        store2.addCustomerToQueue(customer5);
-        store2.serveCustomersBasedOnNumberOfItems(cashier);
-//        System.out.println(store2.getCustomerQueue());
+        Queue<Customer> customerQueue = new PriorityQueue<>();
+        customerQueue.addAll(List.of(customer1, customer2, customer3, customer4, customer5));
+        cashier.addCustomersToQueue(customerQueue);
+        cashier.startCashierThread();
     }
 }
