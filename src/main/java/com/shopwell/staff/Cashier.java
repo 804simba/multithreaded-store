@@ -28,15 +28,6 @@ public class Cashier extends Staff implements Runnable, IQueueManager {
         this.employmentStatus = true;
         this.customerQueue = new PriorityQueue<>(cartSizeComparator);
     }
-
-    public boolean getEmploymentStatus() {
-        return employmentStatus;
-    }
-
-    public void setEmploymentStatus(boolean status) {
-        this.employmentStatus = status;
-    }
-
     public synchronized boolean checkOutCustomer(Customer customer) {
         try {
             Thread.sleep(5000);
@@ -79,8 +70,6 @@ public class Cashier extends Staff implements Runnable, IQueueManager {
         }
         return false;
     }
-
-
     private void updateCompanyBalance(double amount) {
         store.setDailySalesAccount(store.getDailySalesAccount() + amount, this);
     }
@@ -110,13 +99,16 @@ public class Cashier extends Staff implements Runnable, IQueueManager {
             synchronized (lock) {
                 String name = Thread.currentThread().getName();
                 System.out.printf("%s is working...\n", name);
-                while(customerQueue.isEmpty()) {
+                while(customerQueue.isEmpty() && employmentStatus) {
                     try {
                         System.out.println(name + "'s customer queue is empty, waiting for arrival of customers...");
                         lock.wait();
                     } catch (InterruptedException e) {
                         System.err.println(e.getMessage());
                     }
+                }
+                if (!employmentStatus) {
+                    break;
                 }
                 Customer nextCustomer = customerQueue.poll();
                 assert nextCustomer != null;
@@ -129,6 +121,11 @@ public class Cashier extends Staff implements Runnable, IQueueManager {
     }
     public void startCashierThread() {
         Thread t = new Thread(this, this.getName());
-        t.start();
+        if (t.getState() == Thread.State.NEW) {
+            t.start();
+            System.out.println(t.getName() + " thread has started...");
+        } else {
+            throw new IllegalMonitorStateException("Thread is already running..");
+        }
     }
 }
