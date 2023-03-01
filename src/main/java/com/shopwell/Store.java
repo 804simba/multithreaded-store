@@ -4,7 +4,7 @@ import com.shopwell.customers.Customer;
 import com.shopwell.products.Product;
 import com.shopwell.services.IAccountableManager;
 import com.shopwell.services.IEmployeeManager;
-import com.shopwell.services.IInventoryManager;
+import com.shopwell.services.IExcelService;
 import com.shopwell.services.IQueueManager;
 import com.shopwell.staff.Cashier;
 import com.shopwell.utilities.CustomerComparator;
@@ -15,7 +15,7 @@ import lombok.Getter;
 import java.util.*;
 
 @Getter
-public class Store implements IAccountableManager, IEmployeeManager, IInventoryManager, IQueueManager {
+public class Store implements IAccountableManager, IEmployeeManager, IExcelService, IQueueManager {
     private final String name;
     private Double accountBalance;
     private Double dailySalesAccount = 0.0;
