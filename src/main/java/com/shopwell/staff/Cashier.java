@@ -4,6 +4,7 @@ import com.shopwell.customers.Customer;
 import com.shopwell.products.Product;
 import com.shopwell.Store;
 import com.shopwell.enums.Role;
+import com.shopwell.services.ICashierService;
 import com.shopwell.services.IQueueManager;
 import com.shopwell.utilities.CartSizeComparator;
 import lombok.Getter;
@@ -38,7 +39,7 @@ public class Cashier extends Staff implements Runnable, IQueueManager {
 
     public synchronized boolean checkOutCustomer(Customer customer) {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(5000);
             double totalCost = 0.0;
             List<Product> customerCart = customer.getCart();
 
@@ -103,32 +104,6 @@ public class Cashier extends Staff implements Runnable, IQueueManager {
         customerQueue.addAll(queue);
         System.out.println("Customers on the queue: " + this.getCustomerQueue());
     }
-
-//    @Override
-//    public void serveCustomersBasedOnFIFO(Cashier cashier) {
-//        Customer nextCustomer;
-//        while (!customerQueue.isEmpty()) {
-//            nextCustomer = customerQueue.poll();
-//            assert nextCustomer != null;
-//            String s = String.format("Attending to %s\n", nextCustomer.getName());
-//            System.out.printf(s);
-//            checkOutCustomer(nextCustomer);
-//        }
-//    }
-//
-//    @Override
-//    public void serveCustomersBasedOnNumberOfItems(Cashier cashier) {
-//        Customer nextCustomer;
-//        while(!customerQueue.isEmpty()) {
-//            System.out.println("------------------>");
-//            nextCustomer = customerQueue.poll();
-//            System.out.println("Queue: " + customerQueue);
-//            String s = String.format("Attending to %s\n", nextCustomer.getName());
-//            System.out.printf(s);
-//            checkOutCustomer(nextCustomer);
-//        }
-//    }
-
     @Override
     public void run() {
         while (true) {
@@ -137,7 +112,7 @@ public class Cashier extends Staff implements Runnable, IQueueManager {
                 System.out.printf("%s is working...\n", name);
                 while(customerQueue.isEmpty()) {
                     try {
-                        System.out.println("Customer queue is empty, waiting for arrival of customers...");
+                        System.out.println(name + "'s customer queue is empty, waiting for arrival of customers...");
                         lock.wait();
                     } catch (InterruptedException e) {
                         System.err.println(e.getMessage());
@@ -146,7 +121,7 @@ public class Cashier extends Staff implements Runnable, IQueueManager {
                 Customer nextCustomer = customerQueue.poll();
                 assert nextCustomer != null;
                 checkOutCustomer(nextCustomer);
-                System.out.println("Queue: " + customerQueue);
+                System.out.println(name + "'s Queue: " + customerQueue);
                 String s = String.format("%s Attending to %s\n", name, nextCustomer.getName());
                 System.out.printf(s);
             }
