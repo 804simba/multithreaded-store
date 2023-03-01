@@ -1,13 +1,10 @@
 package com.shopwell;
 
-import com.shopwell.customers.Customer;
 import com.shopwell.products.Product;
-import com.shopwell.services.IAccountableManager;
+import com.shopwell.services.IAccountManager;
 import com.shopwell.services.IEmployeeManager;
 import com.shopwell.services.IExcelService;
-import com.shopwell.services.IQueueManager;
 import com.shopwell.staff.Cashier;
-import com.shopwell.utilities.CartSizeComparator;
 import com.shopwell.utilities.ExcelManager;
 import com.shopwell.staff.Manager;
 import lombok.Getter;
@@ -15,7 +12,7 @@ import lombok.Getter;
 import java.util.*;
 
 @Getter
-public class Store implements IAccountableManager, IEmployeeManager, IExcelService {
+public class Store implements IAccountManager, IEmployeeManager, IExcelService {
     private final String name;
     private Double accountBalance;
     private Double dailySalesAccount = 0.0;
