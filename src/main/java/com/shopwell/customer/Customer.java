@@ -34,10 +34,35 @@ public class Customer implements Runnable, ICartService<Product> {
         System.out.println();
     }
     public void buyProducts() {
-
+        synchronized (store) {
+            boolean isAvailable = store.isAvailable(cart);
+            if (isAvailable) {
+                makePayment();
+                store.buyProducts(cart);
+                String message = String.format("%s your orders will be delivered soon...", name);
+                System.out.println(message);
+            } else {
+                // simulate a customer waiting...
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                boolean isAvailableAfterWait = store.isAvailable(cart);
+                if (isAvailableAfterWait) {
+                    makePayment();
+                    store.buyProducts(cart);
+                    String message = String.format("%s your orders will be delivered soon...", name);
+                    System.out.println(message);
+                } else {
+                    System.out.println(this.name + " has given up on buying the products in the cart...");
+                    System.out.println(this.name + " has cancelled their orders...");
+                }
+            }
+        }
     }
 
-    public void makePayment(double amount) {
+    public void makePayment() {
         double totalPrice = 0.0;
         for (Product product : getCart()) {
             totalPrice += product.getPrice();
@@ -51,7 +76,7 @@ public class Customer implements Runnable, ICartService<Product> {
 
     @Override
     public void run() {
-
+        buyProducts();
     }
 
     @Override
