@@ -38,7 +38,7 @@ public class Customer implements Runnable, ICartService<Product> {
             boolean isAvailable = store.isAvailable(cart);
             if (isAvailable) {
                 makePayment();
-                store.buyProducts(cart);
+                store.sellProducts(cart);
                 String message = String.format("%s your orders will be delivered soon...", name);
                 System.out.println(message);
             } else {
@@ -51,7 +51,7 @@ public class Customer implements Runnable, ICartService<Product> {
                 boolean isAvailableAfterWait = store.isAvailable(cart);
                 if (isAvailableAfterWait) {
                     makePayment();
-                    store.buyProducts(cart);
+                    store.sellProducts(cart);
                     String message = String.format("%s your orders will be delivered soon...", name);
                     System.out.println(message);
                 } else {

@@ -50,7 +50,7 @@ public class Store implements IAccountManager, ICatalogueService {
         return result;
     }
     @Override
-    public void buyProducts(List<Product> customerCart) {
+    public void sellProducts(List<Product> customerCart) {
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {

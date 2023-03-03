@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 public class CatalogueServiceImpl implements ICatalogueService {
     @Override
-    public void buyProducts(List<Product> customerCart) {
+    public void sellProducts(List<Product> customerCart) {
 
     }
     @Override
