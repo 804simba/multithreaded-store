@@ -62,6 +62,7 @@ public class Store implements IAccountManager, ICatalogueService {
             for (Product product : customerCart) {
                 if (!storeCatalogue.isEmpty() && storeCatalogue.containsKey(product.getName())
                         && storeCatalogue.get(product.getName()).getQuantity() >= product.getQuantity()) {
+                    // updates each item in the customer's cart from the corresponding product in the store catalogue.
                     storeCatalogue.get(product.getName()).setQuantity(storeCatalogue.get(product.getName()).getQuantity() - product.getQuantity());
                     String message = String.format("Sold %d units of %s", product.getQuantity(), product.getName());
                     System.out.println(message);
