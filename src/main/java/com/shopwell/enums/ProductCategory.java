@@ -1,6 +1,6 @@
 package com.shopwell.enums;
 
-public enum PRODUCTCATEGORY {
+public enum ProductCategory {
     ELECTRONICS, BEVERAGES, GROCERIES, TOILETRIES;
 
     @Override

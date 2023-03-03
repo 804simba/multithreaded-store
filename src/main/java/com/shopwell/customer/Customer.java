@@ -1,16 +1,15 @@
-package com.shopwell.customers;
+package com.shopwell.customer;
 
-import com.shopwell.products.Product;
+import com.shopwell.product.Product;
+import com.shopwell.services.ICartService;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
 @Getter
-public class Customer implements Comparable<Customer> {
+public class Customer implements Runnable, ICartService<Product> {
     private final String name;
     private Double creditCardBalance;
     private final List<Product> cart;
@@ -20,15 +19,20 @@ public class Customer implements Comparable<Customer> {
         this.name = name;
         this.creditCardBalance = creditCardBalance;
         this.cart = new LinkedList<>();
-        timeOfArrival = LocalDateTime.now().toString();
+        this.timeOfArrival = LocalDateTime.now().toString();
     }
 
-    public void addProductToCart(Product product, Integer quantity) {
+    @Override
+    public void addProductToCart(Product product, int quantity) {
         Product selectedProduct;
         selectedProduct = new Product(product.getProductName(), product.getProductPrice(), product.getProductCategory(), quantity);
         cart.add(selectedProduct);
         System.out.printf("%s added %d units of %s to cart", this.getName(), selectedProduct.getProductQuantity(), selectedProduct.getProductName());
         System.out.println();
+    }
+    @Override
+    public List<Product> getCart() {
+        return cart;
     }
 
     public void makePayment(double amount) {
@@ -39,8 +43,8 @@ public class Customer implements Comparable<Customer> {
     }
 
     @Override
-    public int compareTo(Customer o) {
-        return this.getTimeOfArrival().compareTo(o.getTimeOfArrival());
+    public void run() {
+
     }
 
     @Override

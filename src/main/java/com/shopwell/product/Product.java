@@ -1,6 +1,6 @@
-package com.shopwell.products;
+package com.shopwell.product;
 
-import com.shopwell.enums.PRODUCTCATEGORY;
+import com.shopwell.enums.ProductCategory;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,10 +8,10 @@ import lombok.Setter;
 public class Product {
     private String productName;
     private double productPrice;
-    private PRODUCTCATEGORY productCategory;
+    private ProductCategory productCategory;
     private int productQuantity;
 
-    public Product(String productName, double productPrice, PRODUCTCATEGORY productCategory, int productQuantity) {
+    public Product(String productName, double productPrice, ProductCategory productCategory, int productQuantity) {
         this.productName = productName;
         this.productPrice = productPrice;
         this.productCategory = productCategory;
