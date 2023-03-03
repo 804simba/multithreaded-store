@@ -78,6 +78,10 @@ public class Customer implements Runnable, ICartService<Product> {
     public void run() {
         buyProducts();
     }
+    public void startCustomerThread() {
+        Thread c = new Thread(this, this.getName());
+        c.start();
+    }
 
     @Override
     public String toString() {

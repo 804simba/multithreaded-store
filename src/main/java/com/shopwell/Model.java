@@ -10,7 +10,7 @@ import com.shopwell.store.Store;
 public class Model {
     public static void main(String[] args) {
         ICatalogueService iCatalogueService = new CatalogueServiceImpl();
-        Store store = new Store("shopwell", 100000.0, iCatalogueService);
+        Store store = new Store("Shop Well", 100000.0, iCatalogueService);
 
         Product rice = new Product("Rice", 2000, ProductCategory.GROCERIES, 110);
         Product beer = new Product("Beer", 20, ProductCategory.GROCERIES, 100);
