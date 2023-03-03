@@ -6,25 +6,25 @@ import lombok.Setter;
 
 @Getter @Setter
 public class Product {
-    private String productName;
-    private double productPrice;
+    private String name;
+    private double price;
     private ProductCategory productCategory;
-    private int productQuantity;
+    private int quantity;
 
-    public Product(String productName, double productPrice, ProductCategory productCategory, int productQuantity) {
-        this.productName = productName;
-        this.productPrice = productPrice;
+    public Product(String name, double price, ProductCategory productCategory, int quantity) {
+        this.name = name;
+        this.price = price;
         this.productCategory = productCategory;
-        this.productQuantity = productQuantity;
+        this.quantity = quantity;
     }
 
     @Override
     public String toString() {
         return "Product{" +
-                "productName='" + productName + '\'' +
-                ", productPrice=" + productPrice +
+                "productName='" + name + '\'' +
+                ", productPrice=" + price +
                 ", productCategory=" + productCategory +
-                ", productQuantity=" + productQuantity +
+                ", productQuantity=" + quantity +
                 '}';
     }
 }

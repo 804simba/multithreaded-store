@@ -28,21 +28,25 @@ public class Customer implements Runnable, ICartService<Product> {
     @Override
     public void addProductToCart(Product product, int quantity) {
         Product selectedProduct;
-        selectedProduct = new Product(product.getProductName(), product.getProductPrice(), product.getProductCategory(), quantity);
+        selectedProduct = new Product(product.getName(), product.getPrice(), product.getProductCategory(), quantity);
         cart.add(selectedProduct);
-        System.out.printf("%s added %d units of %s to cart", this.getName(), selectedProduct.getProductQuantity(), selectedProduct.getProductName());
+        System.out.printf("%s added %d units of %s to cart", this.getName(), selectedProduct.getQuantity(), selectedProduct.getName());
         System.out.println();
     }
-    @Override
-    public List<Product> getCart() {
-        return cart;
+    public void buyProducts() {
+
     }
 
     public void makePayment(double amount) {
-        creditCardBalance -= amount;
-        System.out.printf("%s\n", this.getName());
-        System.out.printf("Debit alert: %.2f  Available Balance: %.2f\n", amount, getCreditCardBalance());
-        System.out.println();
+        double totalPrice = 0.0;
+        for (Product product : getCart()) {
+            totalPrice += product.getPrice();
+        }
+        if (totalPrice >= creditCardBalance) {
+            System.out.println(this.name + " does not have enough money to buy these items >>>");
+        } else {
+            this.creditCardBalance -= totalPrice;
+        }
     }
 
     @Override

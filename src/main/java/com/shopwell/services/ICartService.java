@@ -6,5 +6,4 @@ import java.util.List;
 
 public interface ICartService<T> {
     void addProductToCart(Product product, int quantity);
-    List<Product> getCart();
 }
