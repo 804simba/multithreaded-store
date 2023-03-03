@@ -2,6 +2,7 @@ package com.shopwell.customer;
 
 import com.shopwell.product.Product;
 import com.shopwell.services.ICartService;
+import com.shopwell.store.Store;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -14,12 +15,14 @@ public class Customer implements Runnable, ICartService<Product> {
     private Double creditCardBalance;
     private final List<Product> cart;
     private final String timeOfArrival;
+    private final Store store;
 
-    public Customer(String name, Double creditCardBalance) {
+    public Customer(String name, Double creditCardBalance, Store store) {
         this.name = name;
         this.creditCardBalance = creditCardBalance;
         this.cart = new LinkedList<>();
         this.timeOfArrival = LocalDateTime.now().toString();
+        this.store = store;
     }
 
     @Override
