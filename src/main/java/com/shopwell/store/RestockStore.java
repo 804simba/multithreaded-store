@@ -1,9 +1,7 @@
 package com.shopwell.store;
 
-import com.shopwell.enums.ProductCategory;
 import com.shopwell.product.Product;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
