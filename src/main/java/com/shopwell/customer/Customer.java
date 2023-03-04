@@ -6,6 +6,7 @@ import com.shopwell.store.Store;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class Customer implements Runnable, ICartService<Product> {
     public Customer(String name, Double creditCardBalance, Store store) {
         this.name = name;
         this.creditCardBalance = creditCardBalance;
-        this.cart = new LinkedList<>();
+        this.cart = new ArrayList<>();
         this.timeOfArrival = LocalDateTime.now().toString();
         this.store = store;
     }
@@ -39,8 +40,6 @@ public class Customer implements Runnable, ICartService<Product> {
             if (isAvailable) {
                 makePayment();
                 store.sellProducts(cart);
-                String message = String.format("%s your orders will be delivered soon...", name);
-                System.out.println(message);
             } else {
                 // simulate a customer waiting...
                 try {
