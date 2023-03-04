@@ -14,9 +14,9 @@ public class Model {
 
         Store store = new Store("Shop Well", 100000.0);
 
-        Product rice = new Product("Rice", 2000, ProductCategory.GROCERIES, 100);
-        Product beer = new Product("Beer", 200, ProductCategory.GROCERIES, 100);
-        Product soap = new Product("Soap", 100, ProductCategory.TOILETRIES, 300);
+        Product rice = new Product("Rice", 2000, ProductCategory.GROCERIES, 10);
+        Product beer = new Product("Beer", 200, ProductCategory.BEVERAGES, 10);
+        Product soap = new Product("Soap", 100, ProductCategory.TOILETRIES, 30);
 
         Map<String, Product> newProducts = new HashMap<>();
         newProducts.put(rice.getName(), rice);
@@ -26,11 +26,11 @@ public class Model {
         store.addProducts(newProducts);
 
         System.out.println("New customers...");
-        Customer customer1 = new Customer("Hov", 50000000.0, store);
-        Customer customer2 = new Customer("Musa", 70000000.0, store);
-        Customer customer3 = new Customer("Hannah", 200000000.0, store);
-        Customer customer4 = new Customer("James", 200000000.0, store);
-        Customer customer5 = new Customer("John", 200000000.0, store);
+        Customer customer1 = new Customer("Hov", 50000.0, store);
+        Customer customer2 = new Customer("Musa", 7000.0, store);
+        Customer customer3 = new Customer("Hannah", 2000.0, store);
+        Customer customer4 = new Customer("James", 12000.0, store);
+        Customer customer5 = new Customer("John", 20000.0, store);
 
         customer1.addProductToCart(rice, 5);
         customer1.addProductToCart(beer, 5);

@@ -9,4 +9,5 @@ public interface ICatalogueService {
     boolean isAvailable(List<Product> customerCart);
     void sellProducts(List<Product> customerCart);
     void addProducts(Map<String, Product> newProducts);
+    void restockProducts();
 }

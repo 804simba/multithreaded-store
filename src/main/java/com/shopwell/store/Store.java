@@ -1,18 +1,17 @@
 package com.shopwell.store;
 
+import com.shopwell.enums.ProductCategory;
 import com.shopwell.product.Product;
-import com.shopwell.services.IAccountManager;
+import com.shopwell.services.IAccountService;
 import com.shopwell.services.ICatalogueService;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 @Getter
-public class Store implements IAccountManager, ICatalogueService {
+public class Store implements IAccountService, ICatalogueService {
     private final String name;
     private Double accountBalance = 0.0;
     final private Map<String, Product> storeCatalogue;
@@ -51,6 +50,7 @@ public class Store implements IAccountManager, ICatalogueService {
         }
         if (!result) {
             System.out.println(Thread.currentThread().getName() + " the items you ordered are currently out of stock >>>");
+            restockProducts();
         } else {
             System.out.println(Thread.currentThread().getName() + " is done checking if items they wish to order are available...");
         }
@@ -85,5 +85,23 @@ public class Store implements IAccountManager, ICatalogueService {
         String message = String.format("%s your orders will be delivered soon...", Thread.currentThread().getName());
         System.out.println(message);
         System.out.println("########### ***********<<>>*********** ###########");
+    }
+
+    @Override
+    public void restockProducts() {
+        Map<String, Product> newProducts = new HashMap<>();
+        Product rice = new Product("Rice", 2000, ProductCategory.GROCERIES, 10);
+        Product beer = new Product("Beer", 200, ProductCategory.BEVERAGES, 10);
+        Product soap = new Product("Soap", 100, ProductCategory.TOILETRIES, 20);
+        Product perfume = new Product("Perfume", 100, ProductCategory.TOILETRIES, 30);
+        Product beans = new Product("Beans", 100, ProductCategory.GROCERIES, 40);
+        newProducts.put(rice.getName(), rice);
+        newProducts.put(beer.getName(), beer);
+        newProducts.put(soap.getName(), soap);
+        newProducts.put(perfume.getName(), perfume);
+        newProducts.put(beans.getName(), beans);
+
+        RestockStore restockStore = new RestockStore(this, newProducts);
+        restockStore.startRestockThread();
     }
 }
