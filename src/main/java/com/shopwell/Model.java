@@ -26,7 +26,7 @@ public class Model {
         store.addProducts(newProducts);
 
         System.out.println("New customers...");
-        Customer customer1 = new Customer("Hov", 50000.0, store);
+        Customer customer1 = new Customer("Hov", 500.0, store);
         Customer customer2 = new Customer("Musa", 7000.0, store);
         Customer customer3 = new Customer("Hannah", 2000.0, store);
         Customer customer4 = new Customer("James", 12000.0, store);

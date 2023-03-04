@@ -38,8 +38,12 @@ public class Customer implements Runnable, ICartService<Product> {
         synchronized (store) {
             boolean isAvailable = store.isAvailable(cart);
             if (isAvailable) {
-                makePayment();
-                store.sellProducts(cart);
+                try {
+                    makePayment();
+                    store.sellProducts(cart);
+                } catch (RuntimeException e) {
+                    System.err.println(name + ": Cannot make purchase, " + e.getMessage());
+                }
             } else {
                 // simulate a customer waiting...
                 try {
@@ -49,10 +53,14 @@ public class Customer implements Runnable, ICartService<Product> {
                 }
                 boolean isAvailableAfterWait = store.isAvailable(cart);
                 if (isAvailableAfterWait) {
-                    makePayment();
-                    store.sellProducts(cart);
-                    String message = String.format("%s your orders will be delivered soon...", name);
-                    System.out.println(message);
+                    try {
+                        makePayment();
+                        store.sellProducts(cart);
+                        String message = String.format("%s your orders will be delivered soon...", name);
+                        System.out.println(message);
+                    } catch (RuntimeException e) {
+                        System.err.println(name + ": Cannot make purchase, " + e.getMessage());
+                    }
                 } else {
                     System.out.println(this.name + " has given up on buying the products in the cart...");
                     System.out.println(this.name + " has cancelled their orders...");
@@ -67,7 +75,8 @@ public class Customer implements Runnable, ICartService<Product> {
             totalPrice += product.getPrice();
         }
         if (totalPrice >= creditCardBalance) {
-            System.out.println(this.name + " does not have enough money to buy these items >>>");
+//            System.out.println(this.name + " does not have enough money to buy these items >>>");
+            throw new RuntimeException("Insufficient balance..");
         } else {
             this.creditCardBalance -= totalPrice;
         }
