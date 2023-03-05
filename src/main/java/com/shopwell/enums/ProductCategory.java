@@ -5,12 +5,12 @@ public enum ProductCategory {
 
     @Override
     public String toString() {
-        switch(this) {
-            case GROCERIES: return "Groceries";
-            case TOILETRIES: return "Toiletries";
-            case BEVERAGES: return "Beverages";
-            case ELECTRONICS: return "Electronics";
-            default: return "Not Available";
-        }
+        return switch (this) {
+            case GROCERIES -> "Groceries";
+            case TOILETRIES -> "Toiletries";
+            case BEVERAGES -> "Beverages";
+            case ELECTRONICS -> "Electronics";
+            default -> "Not Available";
+        };
     }
 }
