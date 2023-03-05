@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Getter
 public class Customer implements Runnable, ICartService<Product> {
@@ -47,7 +48,7 @@ public class Customer implements Runnable, ICartService<Product> {
             } else {
                 // simulate a customer waiting...
                 try {
-                    Thread.sleep(5000);
+                    TimeUnit.SECONDS.sleep(9);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -75,7 +76,6 @@ public class Customer implements Runnable, ICartService<Product> {
             totalPrice += product.getPrice();
         }
         if (totalPrice >= creditCardBalance) {
-//            System.out.println(this.name + " does not have enough money to buy these items >>>");
             throw new RuntimeException("Insufficient balance..");
         } else {
             this.creditCardBalance -= totalPrice;
@@ -89,6 +89,11 @@ public class Customer implements Runnable, ICartService<Product> {
     public void startCustomerThread() {
         Thread c = new Thread(this, this.getName());
         c.start();
+        try {
+            TimeUnit.SECONDS.sleep(9);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     @Override

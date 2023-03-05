@@ -21,23 +21,23 @@ public class RestockStore implements Runnable{
                 store.getStoreCatalogue().put(newProduct.getName(), newProduct);
             }
         }
+        System.out.println(">>>>>>>> ADDED NEW PRODUCTS TO STORE...");
         System.out.println("Restocked products catalogue: " + store.getStoreCatalogue().toString());
     }
     @Override
     public void run() {
         try {
-            TimeUnit.SECONDS.sleep(20);
+            TimeUnit.SECONDS.sleep(7);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         restockStore();
-        System.out.println(">>>>>>>> ADDED NEW PRODUCTS TO STORE...");
     }
     public void startRestockThread() {
         Thread restockThread = new Thread(this);
         restockThread.start();
         try {
-            TimeUnit.SECONDS.sleep(10);
+            TimeUnit.SECONDS.sleep(4);
         } catch (InterruptedException e) {
             throw new RuntimeException(e.getMessage());
         }
